@@ -3,16 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { PostEntity } from './entities/post.entity';
+import Post from './entities/post.entity';
 
 @Injectable()
 export class PostsService {
-  /**
-   *
-   */
   constructor(
-    @InjectRepository(PostEntity)
-    private postsRepository: Repository<PostEntity>,
+    @InjectRepository(Post)
+    private postsRepository: Repository<Post>,
   ) {}
   async create(createPostDto: CreatePostDto) {
     const newPost = await this.postsRepository.create(createPostDto);
@@ -24,7 +21,7 @@ export class PostsService {
   }
 
   async findOne(id: number) {
-    const post = await this.postsRepository.findOne(id);
+    const post = await this.postsRepository.findOneBy({ id });
     if (post) {
       return post;
     }
@@ -33,7 +30,7 @@ export class PostsService {
 
   async update(id: number, updatePostDto: UpdatePostDto) {
     await this.postsRepository.update(id, updatePostDto);
-    const updatedPost = await this.postsRepository.findOne(id);
+    const updatedPost = await this.postsRepository.findOneBy({ id });
     if (updatedPost) {
       return updatedPost;
     }

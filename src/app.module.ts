@@ -5,10 +5,11 @@ import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthService } from './auth/auth.service';
 import * as Joi from '@hapi/joi';
+import { AuthModule } from './auth/auth.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    PostsModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -19,9 +20,11 @@ import * as Joi from '@hapi/joi';
         PORT: Joi.number().required(),
       }),
     }),
+    AuthModule,
     DatabaseModule,
     UsersModule,
+    PostsModule,
   ],
-  providers: [AuthService],
+  providers: [JwtService, AuthService],
 })
 export class AppModule {}
