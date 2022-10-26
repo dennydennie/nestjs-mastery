@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { UsersModule } from './users/users.module';
+import { AuthService } from './auth/auth.service';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -20,8 +20,8 @@ import * as Joi from '@hapi/joi';
       }),
     }),
     DatabaseModule,
+    UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [AuthService],
 })
 export class AppModule {}

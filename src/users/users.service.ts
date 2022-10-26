@@ -33,4 +33,15 @@ export class UsersService {
     }
     throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
   }
+
+  async getById(userId: number) {
+    const user = await this.userRepository.findOneBy({
+      id: userId,
+    });
+    if (user) {
+      user.password = undefined;
+      return user;
+    }
+    throw new HttpException('User does not exist.', HttpStatus.NOT_FOUND);
+  }
 }
