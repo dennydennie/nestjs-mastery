@@ -39,8 +39,7 @@ let AuthService = class AuthService {
     async getUser(loginDto) {
         try {
             const user = await this.usersService.findByEmail(loginDto.email);
-            const hashedPassword = await bcrypt.hash(loginDto.password, 10);
-            const isPasswordMatching = await bcrypt.compare(hashedPassword, user.password);
+            const isPasswordMatching = await bcrypt.compare(loginDto.password, user.password);
             if (!isPasswordMatching) {
                 throw new common_1.HttpException('Invalid login details', common_1.HttpStatus.BAD_REQUEST);
             }

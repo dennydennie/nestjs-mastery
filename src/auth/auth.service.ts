@@ -43,11 +43,11 @@ export class AuthService {
   public async getUser(loginDto: LoginDto) {
     try {
       const user = await this.usersService.findByEmail(loginDto.email);
-      const hashedPassword = await bcrypt.hash(loginDto.password, 10);
       const isPasswordMatching = await bcrypt.compare(
-        hashedPassword,
+        loginDto.password,
         user.password,
       );
+
       if (!isPasswordMatching) {
         throw new HttpException(
           'Invalid login details',
