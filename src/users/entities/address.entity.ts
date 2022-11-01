@@ -9,7 +9,7 @@ class Address {
   @Column()
   public street: string;
 
-  @Column()"str"
+  @Column()
   public city: string;
 
   @Column()

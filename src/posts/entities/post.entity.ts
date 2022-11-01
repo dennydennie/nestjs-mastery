@@ -25,6 +25,7 @@ class Post {
 
   @ManyToMany(() => Category, (category: Category) => category.posts, {
     eager: true,
+    cascade: true,
   })
   @JoinTable()
   public categories: Category[];

@@ -23,8 +23,8 @@ __decorate([
 ], Address.prototype, "street", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", Object)
-], Address.prototype, "str", void 0);
+    __metadata("design:type", String)
+], Address.prototype, "city", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

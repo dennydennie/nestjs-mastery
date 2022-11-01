@@ -21,12 +21,6 @@ let CategoryService = class CategoryService {
     constructor(categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-    create(createCategoryDto) {
-        return 'This action adds a new category';
-    }
-    findAll() {
-        return `This action returns all category`;
-    }
     async findOneById(id) {
         const category = await this.categoryRepository.findOneBy({ id });
         if (category) {
@@ -41,9 +35,6 @@ let CategoryService = class CategoryService {
             return updatedCategory;
         }
         throw new common_1.HttpException('Category does not exist', common_1.HttpStatus.NOT_FOUND);
-    }
-    remove(id) {
-        return `This action removes a #${id} category`;
     }
 };
 CategoryService = __decorate([

@@ -33,6 +33,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.ManyToMany)(() => category_entity_1.default, (category) => category.posts, {
         eager: true,
+        cascade: true,
     }),
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
