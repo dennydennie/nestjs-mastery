@@ -10,11 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const user_entity_1 = require("./user.entity");
 let Address = class Address {
 };
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Address.prototype, "id", void 0);
 __decorate([
@@ -23,16 +23,12 @@ __decorate([
 ], Address.prototype, "street", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Address.prototype, "city", void 0);
+    __metadata("design:type", Object)
+], Address.prototype, "str", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Address.prototype, "country", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => user_entity_1.default, (user) => user.address),
-    __metadata("design:type", user_entity_1.default)
-], Address.prototype, "user", void 0);
 Address = __decorate([
     (0, typeorm_1.Entity)()
 ], Address);

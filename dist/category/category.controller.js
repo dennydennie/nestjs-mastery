@@ -28,7 +28,7 @@ let CategoryController = class CategoryController {
         return this.categoryService.findAll();
     }
     findOne(id) {
-        return this.categoryService.findOne(+id);
+        return this.categoryService.findOneById(+id);
     }
     update(id, updateCategoryDto) {
         return this.categoryService.update(+id, updateCategoryDto);
