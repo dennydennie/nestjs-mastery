@@ -21,22 +21,22 @@ let PostsService = class PostsService {
     constructor(postsRepository) {
         this.postsRepository = postsRepository;
     }
-    async create(createPostDto) {
-        const newPost = await this.postsRepository.create(createPostDto);
+    async create(post, user) {
+        const newPost = await this.postsRepository.create(Object.assign(Object.assign({}, post), { author: user }));
         return this.postsRepository.save(newPost);
     }
     findAll() {
         return this.postsRepository.find();
     }
-    async findOne(id) {
+    async findOneById(id) {
         const post = await this.postsRepository.findOneBy({ id });
         if (post) {
             return post;
         }
         throw new common_1.HttpException('Post not found', common_1.HttpStatus.NOT_FOUND);
     }
-    async update(id, updatePostDto) {
-        await this.postsRepository.update(id, updatePostDto);
+    async update(id, updatePost) {
+        await this.postsRepository.update(id, updatePost);
         const updatedPost = await this.postsRepository.findOneBy({ id });
         if (updatedPost) {
             return updatedPost;

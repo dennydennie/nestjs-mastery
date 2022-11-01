@@ -16,6 +16,7 @@ const auth_service_1 = require("./auth/auth.service");
 const Joi = require("@hapi/joi");
 const auth_module_1 = require("./auth/auth.module");
 const jwt_1 = require("@nestjs/jwt");
+const category_module_1 = require("./category/category.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -35,6 +36,7 @@ AppModule = __decorate([
             database_module_1.DatabaseModule,
             users_module_1.UsersModule,
             posts_module_1.PostsModule,
+            category_module_1.CategoryModule,
         ],
         providers: [jwt_1.JwtService, auth_service_1.AuthService],
     })

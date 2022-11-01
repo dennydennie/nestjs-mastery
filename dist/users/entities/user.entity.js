@@ -9,7 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
+const address_entity_1 = require("./address.entity");
+const post_entity_1 = require("../../posts/entities/post.entity");
 let User = class User {
 };
 __decorate([
@@ -26,8 +29,18 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => address_entity_1.default, { eager: true, cascade: true }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", address_entity_1.default)
+], User.prototype, "address", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => post_entity_1.default, (post) => post.author),
+    __metadata("design:type", Array)
+], User.prototype, "posts", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

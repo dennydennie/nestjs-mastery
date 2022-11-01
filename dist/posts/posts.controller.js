@@ -21,14 +21,14 @@ let PostsController = class PostsController {
     constructor(postsService) {
         this.postsService = postsService;
     }
-    create(createPostDto) {
-        return this.postsService.create(createPostDto);
+    create(post, req) {
+        return this.postsService.create(post, req.user);
     }
     findAll() {
         return this.postsService.findAll();
     }
     findOne(id) {
-        return this.postsService.findOne(+id);
+        return this.postsService.findOneById(+id);
     }
     update(id, updatePostDto) {
         return this.postsService.update(+id, updatePostDto);
@@ -40,8 +40,9 @@ let PostsController = class PostsController {
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_post_dto_1.CreatePostDto]),
+    __metadata("design:paramtypes", [create_post_dto_1.CreatePostDto, Object]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "create", null);
 __decorate([

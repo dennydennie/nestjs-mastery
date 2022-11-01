@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpCode,
@@ -7,6 +8,7 @@ import {
   Req,
   Res,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
@@ -27,6 +29,7 @@ export class AuthController {
 
   @HttpCode(200)
   @UseGuards(LocalAuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('login')
   async login(@Req() request: RequestWithUser, @Res() response: Response) {
     const { user } = request;

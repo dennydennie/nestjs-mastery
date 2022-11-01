@@ -52,6 +52,7 @@ __decorate([
 __decorate([
     (0, common_1.HttpCode)(200),
     (0, common_1.UseGuards)(localAuth_guard_1.LocalAuthGuard),
+    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),

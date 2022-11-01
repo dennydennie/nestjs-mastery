@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service';
 import * as Joi from '@hapi/joi';
 import { AuthModule } from './auth/auth.module';
 import { JwtService } from '@nestjs/jwt';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { JwtService } from '@nestjs/jwt';
     DatabaseModule,
     UsersModule,
     PostsModule,
+    CategoryModule,
   ],
   providers: [JwtService, AuthService],
 })

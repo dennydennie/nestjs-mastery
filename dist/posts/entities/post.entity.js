@@ -9,7 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
+const category_entity_1 = require("./category.entity");
 let Post = class Post {
 };
 __decorate([
@@ -24,6 +26,17 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Post.prototype, "content", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.default, (author) => author.posts, { eager: true }),
+    __metadata("design:type", user_entity_1.default)
+], Post.prototype, "author", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => category_entity_1.default, (category) => category.posts, {
+        eager: true,
+    }),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Array)
+], Post.prototype, "categories", void 0);
 Post = __decorate([
     (0, typeorm_1.Entity)()
 ], Post);
