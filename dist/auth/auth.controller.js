@@ -16,8 +16,8 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const register_dto_1 = require("./dto/register.dto");
-const localAuth_guard_1 = require("./localAuth.guard");
-const jwtAuthGuard_guard_1 = require("./jwtAuthGuard.guard");
+const localAuth_guard_1 = require("./strategies/local/localAuth.guard");
+const jwtAuthGuard_guard_1 = require("./strategies/jwt/jwtAuthGuard.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;

@@ -7,16 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
-const common_1 = require("@nestjs/common");
-const posts_module_1 = require("./posts/posts.module");
-const config_1 = require("@nestjs/config");
-const database_module_1 = require("./database/database.module");
-const users_module_1 = require("./users/users.module");
-const auth_service_1 = require("./auth/auth.service");
 const Joi = require("@hapi/joi");
-const auth_module_1 = require("./auth/auth.module");
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
-const category_module_1 = require("./category/category.module");
+const addresses_module_1 = require("./addresses/addresses.module");
+const auth_module_1 = require("./auth/auth.module");
+const auth_service_1 = require("./auth/auth.service");
+const database_module_1 = require("./database/database.module");
+const houses_module_1 = require("./houses/houses.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -35,8 +35,8 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
             database_module_1.DatabaseModule,
             users_module_1.UsersModule,
-            posts_module_1.PostsModule,
-            category_module_1.CategoryModule,
+            houses_module_1.HousesModule,
+            addresses_module_1.AddressesModule,
         ],
         providers: [jwt_1.JwtService, auth_service_1.AuthService],
     })

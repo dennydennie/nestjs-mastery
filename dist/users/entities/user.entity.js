@@ -11,13 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
-const address_entity_1 = require("./address.entity");
-const post_entity_1 = require("../../posts/entities/post.entity");
+const house_entity_1 = require("../../houses/entities/house.entity");
 let User = class User {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
 ], User.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -33,14 +32,9 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => address_entity_1.default, { eager: true, cascade: true }),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", address_entity_1.default)
-], User.prototype, "address", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => post_entity_1.default, (post) => post.author),
+    (0, typeorm_1.OneToMany)(() => house_entity_1.House, (house) => house.owner),
     __metadata("design:type", Array)
-], User.prototype, "posts", void 0);
+], User.prototype, "houses", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

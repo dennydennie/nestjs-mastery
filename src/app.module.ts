@@ -1,13 +1,13 @@
-import { Module } from '@nestjs/common';
-import { PostsModule } from './posts/posts.module';
-import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule } from './database/database.module';
-import { UsersModule } from './users/users.module';
-import { AuthService } from './auth/auth.service';
 import * as Joi from '@hapi/joi';
-import { AuthModule } from './auth/auth.module';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { CategoryModule } from './category/category.module';
+import { AddressesModule } from './addresses/addresses.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
+import { DatabaseModule } from './database/database.module';
+import { HousesModule } from './houses/houses.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -24,8 +24,8 @@ import { CategoryModule } from './category/category.module';
     AuthModule,
     DatabaseModule,
     UsersModule,
-    PostsModule,
-    CategoryModule,
+    HousesModule,
+    AddressesModule,
   ],
   providers: [JwtService, AuthService],
 })

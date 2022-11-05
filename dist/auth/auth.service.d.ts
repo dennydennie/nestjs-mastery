@@ -10,6 +10,6 @@ export declare class AuthService {
     constructor(usersService: UsersService, jwtService: JwtService, configService: ConfigService);
     register(registerDto: RegisterDto): Promise<import("../users/entities/user.entity").default>;
     getUser(loginDto: LoginDto): Promise<import("../users/entities/user.entity").default>;
-    getCookieWithJwtToken(userId: number): string;
+    getCookieWithJwtToken(userId: string): string;
     getCookieForLogOut(): string;
 }

@@ -1,19 +1,11 @@
 import { Exclude } from 'class-transformer';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import Address from './address.entity';
-import Post from '../../posts/entities/post.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { House } from 'src/houses/entities/house.entity';
 
 @Entity()
 class User {
-  @PrimaryGeneratedColumn()
-  public id: number;
+  @PrimaryGeneratedColumn('uuid')
+  public id: string;
 
   @Column()
   public name: string;
@@ -25,12 +17,8 @@ class User {
   @Exclude()
   public password: string;
 
-  @OneToOne(() => Address, { eager: true, cascade: true })
-  @JoinColumn()
-  public address: Address;
-
-  @OneToMany(() => Post, (post: Post) => post.author)
-  public posts: Post[];
+  @OneToMany(() => House, (house: House) => house.owner)
+  public houses?: House[];
 }
 
 export default User;

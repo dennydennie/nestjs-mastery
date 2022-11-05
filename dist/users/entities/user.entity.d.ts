@@ -1,11 +1,9 @@
-import Address from './address.entity';
-import Post from '../../posts/entities/post.entity';
+import { House } from 'src/houses/entities/house.entity';
 declare class User {
-    id: number;
+    id: string;
     name: string;
     email: string;
     password: string;
-    address: Address;
-    posts: Post[];
+    houses?: House[];
 }
 export default User;
