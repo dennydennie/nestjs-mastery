@@ -1772,6 +1772,11 @@ busboy@^1.0.0:
   dependencies:
     streamsearch "^1.1.0"
 
+bycontract@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/bycontract/-/bycontract-2.0.11.tgz#953a981be69f100ce030b5532852ea388fdae268"
+  integrity sha512-j05hyOgk4L2YuyLzCMmh87hleW1SwYMwX1ZDfCRAXzGVo1FTQfotBkFQY3M4fwfjk75qCdH7Fr7Pr2Kn/39muw==
+
 bytes@3.1.2:
   version "3.1.2"
   resolved "https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz"

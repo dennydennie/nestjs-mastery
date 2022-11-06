@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
+import ResetPasswordDto from './dto/reset-password.dto';
 import RequestWithUser from './requestWithUser.interface';
 export declare class AuthController {
     private readonly authService;
@@ -9,4 +10,6 @@ export declare class AuthController {
     login(request: RequestWithUser, response: Response): Promise<Response<any, Record<string, any>>>;
     logout(request: RequestWithUser, response: Response): Promise<Response<any, Record<string, any>>>;
     authenticate(request: RequestWithUser): void;
+    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void>;
+    forgotPassword(email: string): Promise<void>;
 }

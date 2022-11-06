@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./entities/user.entity");
+const bcrypt = require("bcrypt");
 let UsersService = class UsersService {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -50,6 +51,40 @@ let UsersService = class UsersService {
             return user;
         }
         throw new common_1.HttpException('User does not exist.', common_1.HttpStatus.NOT_FOUND);
+    }
+    async resetPassword(email, password, token) {
+        const user = await this.userRepository.findOneBy({
+            email,
+            forgotPasswordToken: token,
+        });
+        if (!user) {
+            throw new common_1.InternalServerErrorException();
+        }
+        user.password = await bcrypt.hash(password, 10);
+        user.forgotPasswordToken = null;
+        user.verifyEmailToken = null;
+        await this.userRepository.save(user);
+    }
+    async verifyEmail(email, token) {
+        const user = await this.userRepository.findOneBy({
+            email,
+            verifyEmailToken: token,
+        });
+        if (!user) {
+            return;
+        }
+        user.verifyEmailToken = null;
+        return await this.userRepository.save(user);
+    }
+    async forgotPassword(email) {
+        const user = await this.userRepository.findOneBy({
+            email,
+        });
+        if (!user) {
+            return;
+        }
+        user.forgotPasswordToken = crypto.randomUUID();
+        await this.userRepository.save(user);
     }
 };
 UsersService = __decorate([

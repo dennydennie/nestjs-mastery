@@ -16,6 +16,7 @@ const bcrypt = require("bcrypt");
 const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
 const postgresErrorCodes_enum_1 = require("../database/postgresErrorCodes.enum");
+const bycontract_1 = require("bycontract");
 let AuthService = class AuthService {
     constructor(usersService, jwtService, configService) {
         this.usersService = usersService;
@@ -57,6 +58,18 @@ let AuthService = class AuthService {
     }
     getCookieForLogOut() {
         return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+    }
+    async resetPassword(email, password, token) {
+        (0, bycontract_1.validate)([email, password, token], ['string', 'string', 'string']);
+        await this.usersService.resetPassword(email, password, token);
+    }
+    async verifyEmail(email, token) {
+        (0, bycontract_1.validate)([email, token], ['string', 'string']);
+        return await this.usersService.verifyEmail(email, token);
+    }
+    async forgotPassword(email) {
+        (0, bycontract_1.validate)([email], ['string']);
+        this.usersService.forgotPassword(email);
     }
 };
 AuthService = __decorate([

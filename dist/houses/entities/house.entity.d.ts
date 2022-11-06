@@ -18,4 +18,9 @@ export declare class House {
     hasElectricity: boolean;
     hasBackupElectricity: boolean;
     status: string;
+    hasParkingSpace: boolean;
+    isTilled: boolean;
+    isWalled: boolean;
+    hasOwnEntrance: boolean;
+    hasCelling: boolean;
 }

@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service';
 import { DatabaseModule } from './database/database.module';
 import { HousesModule } from './houses/houses.module';
 import { UsersModule } from './users/users.module';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UsersModule } from './users/users.module';
     DatabaseModule,
     UsersModule,
     HousesModule,
+    SubscriptionsModule,
   ],
   providers: [JwtService, AuthService],
 })

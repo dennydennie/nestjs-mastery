@@ -1,10 +1,9 @@
+import { StreamableFile } from '@nestjs/common';
 import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
 import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
-import { House } from '../entities/house.entity';
-import { PhotoDto } from './photo.dto';
 import { Readable } from 'stream';
-import { StreamableFile } from '@nestjs/common';
+import { House } from '../entities/house.entity';
 
 export default class HouseDto {
   @IsString()
@@ -55,6 +54,21 @@ export default class HouseDto {
   @IsObject()
   public owner: UserDto;
 
+  @IsBoolean()
+  public hasParkingSpace: boolean;
+
+  @IsBoolean()
+  public isTilled: boolean;
+
+  @IsBoolean()
+  public isWalled: boolean;
+
+  @IsBoolean()
+  public hasOwnEntrance: boolean;
+
+  @IsBoolean()
+  public hasCelling: boolean;
+
   static fromModel(house: House): HouseDto {
     const stream = house?.photo && Readable.from(house?.photo?.data);
 
@@ -75,6 +89,11 @@ export default class HouseDto {
       status: house.status,
       address: AddressDto.fromModel(house.address),
       owner: UserDto.fromModel(house.owner),
+      hasParkingSpace: house.hasParkingSpace,
+      isTilled: house.isTilled,
+      isWalled: house.isWalled,
+      hasOwnEntrance: house.hasOwnEntrance,
+      hasCelling: house.hasCelling,
     };
   }
 }

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const house_entity_1 = require("../../houses/entities/house.entity");
+const subscription_entity_1 = require("../../subscriptions/entities/subscription.entity");
 let User = class User {
 };
 __decorate([
@@ -32,9 +33,33 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ unique: true }),
+    __metadata("design:type", String)
+], User.prototype, "phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "forgotPasswordToken", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Object)
+], User.prototype, "verifyEmailToken", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "maritialStatus", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], User.prototype, "familySize", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => house_entity_1.House, (house) => house.owner),
     __metadata("design:type", Array)
 ], User.prototype, "houses", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => subscription_entity_1.Subscription, (subscription) => subscription.customer, { eager: true }),
+    __metadata("design:type", Array)
+], User.prototype, "subscriptions", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

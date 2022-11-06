@@ -16,6 +16,7 @@ const auth_service_1 = require("./auth/auth.service");
 const database_module_1 = require("./database/database.module");
 const houses_module_1 = require("./houses/houses.module");
 const users_module_1 = require("./users/users.module");
+const subscriptions_module_1 = require("./subscriptions/subscriptions.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -35,6 +36,7 @@ AppModule = __decorate([
             database_module_1.DatabaseModule,
             users_module_1.UsersModule,
             houses_module_1.HousesModule,
+            subscriptions_module_1.SubscriptionsModule,
         ],
         providers: [jwt_1.JwtService, auth_service_1.AuthService],
     })

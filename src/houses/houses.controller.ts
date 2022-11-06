@@ -1,11 +1,19 @@
 import {
-  Body, Controller, Delete, Get, Param, Patch, Post, Req, UploadedFile, UseGuards,
-  UseInterceptors
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import RequestWithUser from 'src/auth/requestWithUser.interface';
-import JwtAuthGuard from 'src/auth/strategies/jwt/jwtAuthGuard.guard';
 import { CreateHouseDto } from './dto/create-house.dto';
 import HouseDto from './dto/house.dto';
 import { UpdateHouseDto } from './dto/update-house.dto';
@@ -16,14 +24,18 @@ import { HousesService } from './houses.service';
 export class HousesController {
   constructor(private readonly housesService: HousesService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post()
+  @ApiOperation({
+    summary: 'Create a house',
+  })
   create(@Body() house: CreateHouseDto, @Req() req: RequestWithUser) {
     return this.housesService.create(house, req.user);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
+  @ApiOperation({
+    summary: 'Find all houses',
+  })
   async findAll(): Promise<HouseDto[]> {
     const houseEntities = await this.housesService.findAll();
 
@@ -33,21 +45,33 @@ export class HousesController {
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Find nne house by id',
+  })
   findOne(@Param('id') id: string) {
     return this.housesService.findOneById(id);
   }
 
   @Patch(':id')
+  @ApiOperation({
+    summary: 'Update a house',
+  })
   update(@Param('id') id: string, @Body() updateHouseDto: UpdateHouseDto) {
     return this.housesService.update(id, updateHouseDto);
   }
 
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Remove a house by id',
+  })
   remove(@Param('id') id: string) {
     return this.housesService.remove(id);
   }
 
   @Post('photo/:id')
+  @ApiOperation({
+    summary: 'Upload one photo for each house',
+  })
   @UseInterceptors(FileInterceptor('file'))
   async addPhoto(
     @Param('id') id: string,

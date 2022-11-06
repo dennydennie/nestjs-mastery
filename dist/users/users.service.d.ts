@@ -8,4 +8,7 @@ export declare class UsersService {
     findAll(): Promise<User[]>;
     findByEmail(email: string): Promise<User>;
     getById(userId: string): Promise<User>;
+    resetPassword(email: string, password: string, token: string): Promise<void>;
+    verifyEmail(email: string, token: string): Promise<User>;
+    forgotPassword(email: string): Promise<void>;
 }

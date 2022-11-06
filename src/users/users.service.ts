@@ -1,10 +1,16 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import User from './entities/user.entity';
-
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -44,5 +50,52 @@ export class UsersService {
       return user;
     }
     throw new HttpException('User does not exist.', HttpStatus.NOT_FOUND);
+  }
+  async resetPassword(email: string, password: string, token: string) {
+    const user = await this.userRepository.findOneBy({
+      email,
+      forgotPasswordToken: token,
+    });
+
+    if (!user) {
+      throw new InternalServerErrorException();
+    }
+
+    user.password = await bcrypt.hash(password, 10);
+    user.forgotPasswordToken = null;
+    user.verifyEmailToken = null;
+
+    await this.userRepository.save(user);
+  }
+
+  async verifyEmail(email: string, token: string) {
+    const user = await this.userRepository.findOneBy({
+      email,
+      verifyEmailToken: token,
+    });
+
+    if (!user) {
+      return;
+    }
+
+    user.verifyEmailToken = null;
+
+    return await this.userRepository.save(user);
+  }
+
+  async forgotPassword(email: string) {
+    const user = await this.userRepository.findOneBy({
+      email,
+    });
+
+    if (!user) {
+      return;
+    }
+
+    user.forgotPasswordToken = crypto.randomUUID();
+
+    await this.userRepository.save(user);
+
+    //await this.emailService.sendForgotPassword(user);
   }
 }

@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
 const create_address_dto_1 = require("./create-address.dto");
 const user_dto_1 = require("../../users/dto/user.dto");
 const stream_1 = require("stream");
-const common_1 = require("@nestjs/common");
 class HouseDto {
     static fromModel(house) {
         var _a;
@@ -35,6 +35,11 @@ class HouseDto {
             status: house.status,
             address: create_address_dto_1.default.fromModel(house.address),
             owner: user_dto_1.default.fromModel(house.owner),
+            hasParkingSpace: house.hasParkingSpace,
+            isTilled: house.isTilled,
+            isWalled: house.isWalled,
+            hasOwnEntrance: house.hasOwnEntrance,
+            hasCelling: house.hasCelling,
         };
     }
 }
@@ -102,5 +107,25 @@ __decorate([
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", user_dto_1.default)
 ], HouseDto.prototype, "owner", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], HouseDto.prototype, "hasParkingSpace", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], HouseDto.prototype, "isTilled", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], HouseDto.prototype, "isWalled", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], HouseDto.prototype, "hasOwnEntrance", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], HouseDto.prototype, "hasCelling", void 0);
 exports.default = HouseDto;
 //# sourceMappingURL=house.dto.js.map

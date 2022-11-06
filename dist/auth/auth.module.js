@@ -16,6 +16,8 @@ const auth_controller_1 = require("./auth.controller");
 const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
 const jwt_strategy_1 = require("./strategies/jwt/jwt.strategy");
+const core_1 = require("@nestjs/core");
+const jwtAuthGuard_guard_1 = require("./strategies/jwt/jwtAuthGuard.guard");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -35,7 +37,15 @@ AuthModule = __decorate([
             }),
             users_module_1.UsersModule,
         ],
-        providers: [auth_service_1.AuthService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],
+        providers: [
+            {
+                provide: core_1.APP_GUARD,
+                useClass: jwtAuthGuard_guard_1.JwtAuthGuard,
+            },
+            auth_service_1.AuthService,
+            local_strategy_1.LocalStrategy,
+            jwt_strategy_1.JwtStrategy,
+        ],
         controllers: [auth_controller_1.AuthController],
     })
 ], AuthModule);

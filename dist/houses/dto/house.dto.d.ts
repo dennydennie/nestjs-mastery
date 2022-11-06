@@ -18,5 +18,10 @@ export default class HouseDto {
     status: string;
     address: AddressDto;
     owner: UserDto;
+    hasParkingSpace: boolean;
+    isTilled: boolean;
+    isWalled: boolean;
+    hasOwnEntrance: boolean;
+    hasCelling: boolean;
     static fromModel(house: House): HouseDto;
 }

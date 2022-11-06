@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
@@ -7,6 +12,9 @@ import { ConfigService } from '@nestjs/config';
 import TokenPayload from './tokenPayload.interface';
 import { JwtService } from '@nestjs/jwt';
 import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
+import { validate } from 'bycontract';
+import { IsNull } from 'typeorm';
+import User from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -70,5 +78,23 @@ export class AuthService {
   }
   public getCookieForLogOut() {
     return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+  }
+
+  async resetPassword(email: string, password: string, token: string) {
+    validate([email, password, token], ['string', 'string', 'string']);
+
+    await this.usersService.resetPassword(email, password, token);
+  }
+
+  async verifyEmail(email: string, token: string): Promise<User> {
+    validate([email, token], ['string', 'string']);
+
+    return await this.usersService.verifyEmail(email, token);
+  }
+
+  async forgotPassword(email: string) {
+    validate([email], ['string']);
+
+    this.usersService.forgotPassword(email);
   }
 }
