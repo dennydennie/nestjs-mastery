@@ -9,7 +9,7 @@ export default class UserDto {
   @IsString()
   public email: string;
 
-  static async fromModel(user: User): Promise<UserDto> {
+  static fromModel(user: User): UserDto {
     return {
       id: user.id,
       name: user.name,

@@ -5,12 +5,14 @@ import { Repository } from 'typeorm';
 import { CreateHouseDto } from './dto/create-house.dto';
 import { UpdateHouseDto } from './dto/update-house.dto';
 import { House } from './entities/house.entity';
+import { HousesPhotoService } from './houses-photo.service';
 
 @Injectable()
 export class HousesService {
   constructor(
     @InjectRepository(House)
     private housesRepository: Repository<House>,
+    private housesPhotoService: HousesPhotoService,
   ) {}
   create(house: CreateHouseDto, user: User) {
     const newHouse = this.housesRepository.create({ ...house, owner: user });
@@ -49,5 +51,16 @@ export class HousesService {
     if (!deleteResponse.affected) {
       throw new HttpException('House not found', HttpStatus.NOT_FOUND);
     }
+  }
+
+  async addPhoto(houseId: string, imageBuffer: Buffer, filename: string) {
+    const photo = await this.housesPhotoService.uploadPhoto(
+      imageBuffer,
+      filename,
+    );
+    await this.housesRepository.update(houseId, {
+      photo: photo,
+    });
+    return photo;
   }
 }

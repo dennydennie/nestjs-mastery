@@ -9,27 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const class_validator_1 = require("class-validator");
-class UserDto {
-    static fromModel(user) {
-        return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-        };
-    }
-}
+exports.Photo = void 0;
+const typeorm_1 = require("typeorm");
+let Photo = class Photo {
+};
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], UserDto.prototype, "id", void 0);
+], Photo.prototype, "id", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserDto.prototype, "name", void 0);
+], Photo.prototype, "filename", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], UserDto.prototype, "email", void 0);
-exports.default = UserDto;
-//# sourceMappingURL=user.dto.js.map
+    (0, typeorm_1.Column)({
+        type: 'bytea',
+    }),
+    __metadata("design:type", Uint8Array)
+], Photo.prototype, "data", void 0);
+Photo = __decorate([
+    (0, typeorm_1.Entity)()
+], Photo);
+exports.Photo = Photo;
+//# sourceMappingURL=photo.entity.js.map

@@ -17,11 +17,9 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const house_entity_1 = require("./entities/house.entity");
-const houses_photo_service_1 = require("./houses-photo.service");
 let HousesService = class HousesService {
-    constructor(housesRepository, housesPhotoService) {
+    constructor(housesRepository) {
         this.housesRepository = housesRepository;
-        this.housesPhotoService = housesPhotoService;
     }
     create(house, user) {
         const newHouse = this.housesRepository.create(Object.assign(Object.assign({}, house), { owner: user }));
@@ -55,9 +53,9 @@ let HousesService = class HousesService {
         }
     }
     async addPhoto(houseId, imageBuffer, filename) {
-        const photo = await this.housesPhotoService.uploadPhoto(imageBuffer, filename);
+        const photo = await this.housePhotoService.uploadDatabaseFile(imageBuffer, filename);
         await this.housesRepository.update(houseId, {
-            photo: photo,
+            photo: photo.id,
         });
         return photo;
     }
@@ -65,8 +63,7 @@ let HousesService = class HousesService {
 HousesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(house_entity_1.House)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        houses_photo_service_1.HousesPhotoService])
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], HousesService);
 exports.HousesService = HousesService;
-//# sourceMappingURL=houses.service.js.map
+//# sourceMappingURL=houses.service%20copy.js.map

@@ -1,9 +1,11 @@
-import { Address } from 'src/addresses/entities/addresses.entity';
+import { Address } from 'src/houses/entities/address.entity';
 import User from 'src/users/entities/user.entity';
+import { Photo } from './photo.entity';
 export declare class House {
     id: string;
     address: Address;
     owner: User;
+    photo?: Photo;
     rentalFee: number;
     rentalPeriod: string;
     billsIncluded: boolean;

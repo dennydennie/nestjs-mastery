@@ -14,12 +14,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HousesController = void 0;
 const common_1 = require("@nestjs/common");
-const houses_service_1 = require("./houses.service");
-const create_house_dto_1 = require("./dto/create-house.dto");
-const update_house_dto_1 = require("./dto/update-house.dto");
-const jwtAuthGuard_guard_1 = require("../auth/strategies/jwt/jwtAuthGuard.guard");
+const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
+const jwtAuthGuard_guard_1 = require("../auth/strategies/jwt/jwtAuthGuard.guard");
+const create_house_dto_1 = require("./dto/create-house.dto");
 const house_dto_1 = require("./dto/house.dto");
+const update_house_dto_1 = require("./dto/update-house.dto");
+const houses_service_1 = require("./houses.service");
 let HousesController = class HousesController {
     constructor(housesService) {
         this.housesService = housesService;
@@ -28,9 +29,9 @@ let HousesController = class HousesController {
         return this.housesService.create(house, req.user);
     }
     async findAll() {
-        const houses = await this.housesService.findAll();
-        const allHouses = Promise.all(houses.map((house) => house_dto_1.default.fromModel(house)));
-        return allHouses;
+        const houseEntities = await this.housesService.findAll();
+        const houses = houseEntities.map((house) => house_dto_1.default.fromModel(house));
+        return houses;
     }
     findOne(id) {
         return this.housesService.findOneById(id);
@@ -40,6 +41,9 @@ let HousesController = class HousesController {
     }
     remove(id) {
         return this.housesService.remove(id);
+    }
+    async addPhoto(id, file) {
+        return this.housesService.addPhoto(id, file.buffer, file.originalname);
     }
 };
 __decorate([
@@ -80,6 +84,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], HousesController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)('photo/:id'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], HousesController.prototype, "addPhoto", null);
 HousesController = __decorate([
     (0, common_1.Controller)('houses'),
     (0, swagger_1.ApiTags)('Houses'),

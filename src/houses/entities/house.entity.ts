@@ -1,4 +1,4 @@
-import { Address } from 'src/addresses/entities/addresses.entity';
+import { Address } from 'src/houses/entities/address.entity';
 import User from 'src/users/entities/user.entity';
 import {
   Column,
@@ -8,6 +8,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Photo } from './photo.entity';
 
 @Entity()
 export class House {
@@ -23,6 +24,14 @@ export class House {
     cascade: true,
   })
   public owner: User;
+
+  @JoinColumn()
+  @OneToOne(() => Photo, {
+    eager: true,
+    cascade: true,
+    nullable: true,
+  })
+  public photo?: Photo;
 
   @Column()
   public rentalFee: number;

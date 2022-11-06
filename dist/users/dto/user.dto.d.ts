@@ -3,5 +3,5 @@ export default class UserDto {
     id: string;
     name: string;
     email: string;
-    static fromModel(user: User): Promise<UserDto>;
+    static fromModel(user: User): UserDto;
 }

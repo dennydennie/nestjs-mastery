@@ -1,5 +1,6 @@
-import { IsNumber, IsString } from 'class-validator';
-import { Address } from '../entities/addresses.entity';
+import { IsString } from 'class-validator';
+import { Address } from '../entities/address.entity';
+import { CreateHouseDto } from './create-house.dto';
 
 export default class AddressDto {
   @IsString()
@@ -14,7 +15,8 @@ export default class AddressDto {
   @IsString()
   public city: string;
 
-  static async fromModel(address: Address): Promise<AddressDto> {
+  static fromModel(address: Address): AddressDto {
+
     return {
       houseNumber: address.houseNumber,
       street: address.street,

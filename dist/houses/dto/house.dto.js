@@ -10,12 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const class_validator_1 = require("class-validator");
-const create_address_dto_1 = require("../../addresses/dto/create-address.dto");
+const create_address_dto_1 = require("./create-address.dto");
 const user_dto_1 = require("../../users/dto/user.dto");
+const stream_1 = require("stream");
+const common_1 = require("@nestjs/common");
 class HouseDto {
-    static async fromModel(house) {
+    static fromModel(house) {
+        var _a;
+        const stream = (house === null || house === void 0 ? void 0 : house.photo) && stream_1.Readable.from((_a = house === null || house === void 0 ? void 0 : house.photo) === null || _a === void 0 ? void 0 : _a.data);
         return {
             id: house.id,
+            photo: house.photo ? new common_1.StreamableFile(stream) : undefined,
             rentalFee: house.rentalFee,
             rentalPeriod: house.rentalPeriod,
             billsIncluded: house.billsIncluded,
@@ -28,8 +33,8 @@ class HouseDto {
             hasElectricity: house.hasElectricity,
             hasBackupElectricity: house.hasBackupElectricity,
             status: house.status,
-            address: await create_address_dto_1.default.fromModel(house.address),
-            owner: await user_dto_1.default.fromModel(house.owner),
+            address: create_address_dto_1.default.fromModel(house.address),
+            owner: user_dto_1.default.fromModel(house.owner),
         };
     }
 }
@@ -41,6 +46,10 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], HouseDto.prototype, "rentalFee", void 0);
+__decorate([
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
+], HouseDto.prototype, "photo", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

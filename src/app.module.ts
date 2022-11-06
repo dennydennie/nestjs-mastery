@@ -2,7 +2,6 @@ import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { AddressesModule } from './addresses/addresses.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { DatabaseModule } from './database/database.module';
@@ -25,7 +24,6 @@ import { UsersModule } from './users/users.module';
     DatabaseModule,
     UsersModule,
     HousesModule,
-    AddressesModule,
   ],
   providers: [JwtService, AuthService],
 })

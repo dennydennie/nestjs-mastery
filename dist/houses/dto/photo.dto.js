@@ -9,27 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PhotoDto = void 0;
 const class_validator_1 = require("class-validator");
-class UserDto {
-    static fromModel(user) {
-        return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-        };
-    }
+class PhotoDto {
 }
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UserDto.prototype, "id", void 0);
+], PhotoDto.prototype, "filename", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], UserDto.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], UserDto.prototype, "email", void 0);
-exports.default = UserDto;
-//# sourceMappingURL=user.dto.js.map
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Uint8Array)
+], PhotoDto.prototype, "data", void 0);
+exports.PhotoDto = PhotoDto;
+//# sourceMappingURL=photo.dto.js.map

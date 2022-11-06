@@ -11,7 +11,6 @@ const Joi = require("@hapi/joi");
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
-const addresses_module_1 = require("./addresses/addresses.module");
 const auth_module_1 = require("./auth/auth.module");
 const auth_service_1 = require("./auth/auth.service");
 const database_module_1 = require("./database/database.module");
@@ -36,7 +35,6 @@ AppModule = __decorate([
             database_module_1.DatabaseModule,
             users_module_1.UsersModule,
             houses_module_1.HousesModule,
-            addresses_module_1.AddressesModule,
         ],
         providers: [jwt_1.JwtService, auth_service_1.AuthService],
     })

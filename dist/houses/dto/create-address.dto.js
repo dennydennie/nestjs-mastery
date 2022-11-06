@@ -10,26 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const class_validator_1 = require("class-validator");
-class UserDto {
-    static fromModel(user) {
+class AddressDto {
+    static fromModel(address) {
         return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
+            houseNumber: address.houseNumber,
+            street: address.street,
+            location: address.location,
+            city: address.city,
         };
     }
 }
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UserDto.prototype, "id", void 0);
+], AddressDto.prototype, "houseNumber", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UserDto.prototype, "name", void 0);
+], AddressDto.prototype, "street", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UserDto.prototype, "email", void 0);
-exports.default = UserDto;
-//# sourceMappingURL=user.dto.js.map
+], AddressDto.prototype, "location", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AddressDto.prototype, "city", void 0);
+exports.default = AddressDto;
+//# sourceMappingURL=create-address.dto.js.map

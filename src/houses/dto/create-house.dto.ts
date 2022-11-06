@@ -1,43 +1,47 @@
-import { IsBoolean, IsNumber, IsObject, IsString } from "class-validator";
-import AddressDto from "src/addresses/dto/create-address.dto";
+import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
+import AddressDto from 'src/houses/dto/create-address.dto';
+import { PhotoDto } from './photo.dto';
 
 export class CreateHouseDto {
-    @IsObject()
-    public address: AddressDto;
+  @IsObject()
+  public address: AddressDto;
 
-    @IsNumber()
-    public rentalFee: number;
+  @IsObject()
+  public photo: PhotoDto;
 
-    @IsString()
-    public rentalPeriod: string;
+  @IsNumber()
+  public rentalFee: number;
 
-    @IsNumber()
-    public securityDeposit: number;
+  @IsString()
+  public rentalPeriod: string;
 
-    @IsBoolean()
-    public billsIncluded: boolean;
+  @IsNumber()
+  public securityDeposit: number;
 
-    @IsNumber()
-    public rooms: number;
+  @IsBoolean()
+  public billsIncluded: boolean;
 
-    @IsNumber()
-    public bathrooms: number;
+  @IsNumber()
+  public rooms: number;
 
-    @IsBoolean()
-    public sharing: boolean;
+  @IsNumber()
+  public bathrooms: number;
 
-    @IsBoolean()
-    public hasCouncilWater: boolean;
-    
-    @IsBoolean()
-    public hasBoreholeWater: boolean;
+  @IsBoolean()
+  public sharing: boolean;
 
-    @IsBoolean()
-    public hasElectricity: boolean;
+  @IsBoolean()
+  public hasCouncilWater: boolean;
 
-    @IsBoolean()
-    public hasBackupElectricity: boolean;
+  @IsBoolean()
+  public hasBoreholeWater: boolean;
 
-    @IsBoolean()
-    public status: string
+  @IsBoolean()
+  public hasElectricity: boolean;
+
+  @IsBoolean()
+  public hasBackupElectricity: boolean;
+
+  @IsBoolean()
+  public status: string;
 }

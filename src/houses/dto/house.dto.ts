@@ -1,7 +1,10 @@
 import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
-import AddressDto from 'src/addresses/dto/create-address.dto';
+import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
 import { House } from '../entities/house.entity';
+import { PhotoDto } from './photo.dto';
+import { Readable } from 'stream';
+import { StreamableFile } from '@nestjs/common';
 
 export default class HouseDto {
   @IsString()
@@ -9,6 +12,9 @@ export default class HouseDto {
 
   @IsNumber()
   public rentalFee: number;
+
+  @IsObject()
+  public photo?: any;
 
   @IsString()
   public rentalPeriod: string;
@@ -49,9 +55,12 @@ export default class HouseDto {
   @IsObject()
   public owner: UserDto;
 
-  static async fromModel(house: House): Promise<HouseDto> {
+  static fromModel(house: House): HouseDto {
+    const stream = house?.photo && Readable.from(house?.photo?.data);
+
     return {
       id: house.id,
+      photo: house.photo ? new StreamableFile(stream) : undefined,
       rentalFee: house.rentalFee,
       rentalPeriod: house.rentalPeriod,
       billsIncluded: house.billsIncluded,
@@ -64,8 +73,8 @@ export default class HouseDto {
       hasElectricity: house.hasElectricity,
       hasBackupElectricity: house.hasBackupElectricity,
       status: house.status,
-      address: await AddressDto.fromModel(house.address),
-      owner: await UserDto.fromModel(house.owner),
+      address: AddressDto.fromModel(house.address),
+      owner: UserDto.fromModel(house.owner),
     };
   }
 }

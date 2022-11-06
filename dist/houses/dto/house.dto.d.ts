@@ -1,9 +1,10 @@
-import AddressDto from 'src/addresses/dto/create-address.dto';
+import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
 import { House } from '../entities/house.entity';
 export default class HouseDto {
     id: string;
     rentalFee: number;
+    photo?: any;
     rentalPeriod: string;
     billsIncluded: boolean;
     securityDeposit: number;
@@ -17,5 +18,5 @@ export default class HouseDto {
     status: string;
     address: AddressDto;
     owner: UserDto;
-    static fromModel(house: House): Promise<HouseDto>;
+    static fromModel(house: House): HouseDto;
 }

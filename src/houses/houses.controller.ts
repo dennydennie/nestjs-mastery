@@ -1,21 +1,15 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Req,
-  UseGuards,
+  Body, Controller, Delete, Get, Param, Patch, Post, Req, UploadedFile, UseGuards,
+  UseInterceptors
 } from '@nestjs/common';
-import { HousesService } from './houses.service';
-import { CreateHouseDto } from './dto/create-house.dto';
-import { UpdateHouseDto } from './dto/update-house.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 import RequestWithUser from 'src/auth/requestWithUser.interface';
 import JwtAuthGuard from 'src/auth/strategies/jwt/jwtAuthGuard.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { CreateHouseDto } from './dto/create-house.dto';
 import HouseDto from './dto/house.dto';
+import { UpdateHouseDto } from './dto/update-house.dto';
+import { HousesService } from './houses.service';
 
 @Controller('houses')
 @ApiTags('Houses')
@@ -31,13 +25,11 @@ export class HousesController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<HouseDto[]> {
-    const houses = await this.housesService.findAll();
+    const houseEntities = await this.housesService.findAll();
 
-    const allHouses = Promise.all(
-      houses.map((house) => HouseDto.fromModel(house)),
-    );
+    const houses = houseEntities.map((house) => HouseDto.fromModel(house));
 
-    return allHouses;
+    return houses;
   }
 
   @Get(':id')
@@ -53,5 +45,14 @@ export class HousesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.housesService.remove(id);
+  }
+
+  @Post('photo/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  async addPhoto(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.housesService.addPhoto(id, file.buffer, file.originalname);
   }
 }

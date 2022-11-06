@@ -11,13 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateHouseDto = void 0;
 const class_validator_1 = require("class-validator");
-const create_address_dto_1 = require("../../addresses/dto/create-address.dto");
+const create_address_dto_1 = require("./create-address.dto");
+const photo_dto_1 = require("./photo.dto");
 class CreateHouseDto {
 }
 __decorate([
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", create_address_dto_1.default)
 ], CreateHouseDto.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", photo_dto_1.PhotoDto)
+], CreateHouseDto.prototype, "photo", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
