@@ -17,8 +17,10 @@ import RequestWithUser from './requestWithUser.interface';
 import { request } from 'http';
 import { LocalAuthGuard } from './strategies/local/localAuth.guard';
 import JwtAuthGuard from './strategies/jwt/jwtAuthGuard.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Authentication')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -29,7 +31,6 @@ export class AuthController {
 
   @HttpCode(200)
   @UseGuards(LocalAuthGuard)
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post('login')
   async login(@Req() request: RequestWithUser, @Res() response: Response) {
     const { user } = request;

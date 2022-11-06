@@ -18,6 +18,7 @@ const auth_service_1 = require("./auth.service");
 const register_dto_1 = require("./dto/register.dto");
 const localAuth_guard_1 = require("./strategies/local/localAuth.guard");
 const jwtAuthGuard_guard_1 = require("./strategies/jwt/jwtAuthGuard.guard");
+const swagger_1 = require("@nestjs/swagger");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -52,7 +53,6 @@ __decorate([
 __decorate([
     (0, common_1.HttpCode)(200),
     (0, common_1.UseGuards)(localAuth_guard_1.LocalAuthGuard),
-    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),
@@ -80,6 +80,7 @@ __decorate([
 ], AuthController.prototype, "authenticate", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
+    (0, swagger_1.ApiTags)('Authentication'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 exports.AuthController = AuthController;

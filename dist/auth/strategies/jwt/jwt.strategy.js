@@ -20,8 +20,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromExtractors([
                 (request) => {
-                    var _a;
-                    return (_a = request === null || request === void 0 ? void 0 : request.cookies) === null || _a === void 0 ? void 0 : _a.Authentication;
+                    return request === null || request === void 0 ? void 0 : request.headers.authorization;
                 },
             ]),
             secretOrKey: configService.get('JWT_SECRET'),
@@ -29,7 +28,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         this.configService = configService;
         this.usersService = usersService;
     }
-    async valiadte(payload) {
+    async validate(payload) {
         return this.usersService.getById(payload.userId);
     }
 };

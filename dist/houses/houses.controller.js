@@ -17,6 +17,9 @@ const common_1 = require("@nestjs/common");
 const houses_service_1 = require("./houses.service");
 const create_house_dto_1 = require("./dto/create-house.dto");
 const update_house_dto_1 = require("./dto/update-house.dto");
+const jwtAuthGuard_guard_1 = require("../auth/strategies/jwt/jwtAuthGuard.guard");
+const swagger_1 = require("@nestjs/swagger");
+const house_dto_1 = require("./dto/house.dto");
 let HousesController = class HousesController {
     constructor(housesService) {
         this.housesService = housesService;
@@ -24,8 +27,10 @@ let HousesController = class HousesController {
     create(house, req) {
         return this.housesService.create(house, req.user);
     }
-    findAll() {
-        return this.housesService.findAll();
+    async findAll() {
+        const houses = await this.housesService.findAll();
+        const allHouses = Promise.all(houses.map((house) => house_dto_1.default.fromModel(house)));
+        return allHouses;
     }
     findOne(id) {
         return this.housesService.findOneById(id);
@@ -38,6 +43,7 @@ let HousesController = class HousesController {
     }
 };
 __decorate([
+    (0, common_1.UseGuards)(jwtAuthGuard_guard_1.default),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
@@ -46,10 +52,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], HousesController.prototype, "create", null);
 __decorate([
+    (0, common_1.UseGuards)(jwtAuthGuard_guard_1.default),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], HousesController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -75,6 +82,7 @@ __decorate([
 ], HousesController.prototype, "remove", null);
 HousesController = __decorate([
     (0, common_1.Controller)('houses'),
+    (0, swagger_1.ApiTags)('Houses'),
     __metadata("design:paramtypes", [houses_service_1.HousesService])
 ], HousesController);
 exports.HousesController = HousesController;

@@ -23,7 +23,7 @@ export class HousesService {
     );
   }
 
-  findAll() {
+  findAll(): Promise<House[]> {
     return this.housesRepository.find();
   }
 
