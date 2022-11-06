@@ -7,8 +7,7 @@ declare class User {
     password: string;
     phone: string;
     forgotPasswordToken: string;
-    verifyEmailToken: any;
-    string: any;
+    verifyEmailToken: string;
     maritialStatus?: string;
     familySize?: number;
     houses?: House[];

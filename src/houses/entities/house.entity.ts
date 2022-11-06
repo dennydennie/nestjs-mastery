@@ -69,18 +69,18 @@ export class House {
   @Column()
   public status: string;
 
-  @Column()
+  @Column({ nullable: true })
   public hasParkingSpace: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   public isTilled: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   public isWalled: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   public hasOwnEntrance: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   public hasCelling: boolean;
 }

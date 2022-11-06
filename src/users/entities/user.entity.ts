@@ -18,19 +18,19 @@ class User {
   @Exclude()
   public password: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   public phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   public forgotPasswordToken: string;
 
-  @Column()
-  public verifyEmailToken; string;
+  @Column({ nullable: true })
+  public verifyEmailToken: string;
 
-  @Column()
+  @Column({ nullable: true })
   public maritialStatus?: string;
 
-  @Column()
+  @Column({ nullable: true })
   public familySize?: number;
 
   @OneToMany(() => House, (house: House) => house.owner)

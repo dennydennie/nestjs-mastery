@@ -33,23 +33,23 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Column)({ unique: true, nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "phone", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "forgotPasswordToken", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Object)
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
 ], User.prototype, "verifyEmailToken", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "maritialStatus", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Number)
 ], User.prototype, "familySize", void 0);
 __decorate([
