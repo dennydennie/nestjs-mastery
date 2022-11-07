@@ -17,6 +17,7 @@ const database_module_1 = require("./database/database.module");
 const houses_module_1 = require("./houses/houses.module");
 const users_module_1 = require("./users/users.module");
 const subscriptions_module_1 = require("./subscriptions/subscriptions.module");
+const email_service_1 = require("./email/email.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -30,6 +31,12 @@ AppModule = __decorate([
                     POSTGRES_USERNAME: Joi.string().required(),
                     POSTGRES_PASSWORD: Joi.string().required(),
                     PORT: Joi.number().required(),
+                    JWT_VERIFICATION_TOKEN_SECRET: Joi.string().required(),
+                    JWT_VERIFICATION_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+                    EMAIL_CONFIRMATION_URL: Joi.string().required(),
+                    EMAIL_SERVICE: Joi.string().required(),
+                    EMAIL_USER: Joi.string().required(),
+                    EMAIL_PASSWORD: Joi.string().required(),
                 }),
             }),
             auth_module_1.AuthModule,
@@ -38,7 +45,7 @@ AppModule = __decorate([
             houses_module_1.HousesModule,
             subscriptions_module_1.SubscriptionsModule,
         ],
-        providers: [jwt_1.JwtService, auth_service_1.AuthService],
+        providers: [jwt_1.JwtService, auth_service_1.AuthService, email_service_1.EmailService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

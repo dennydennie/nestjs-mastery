@@ -57,6 +57,10 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "houses", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: false, nullable: true }),
+    __metadata("design:type", Boolean)
+], User.prototype, "isEmailConfirmed", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => subscription_entity_1.Subscription, (subscription) => subscription.customer, { eager: true }),
     __metadata("design:type", Array)
 ], User.prototype, "subscriptions", void 0);

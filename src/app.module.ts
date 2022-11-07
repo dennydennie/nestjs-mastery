@@ -8,6 +8,8 @@ import { DatabaseModule } from './database/database.module';
 import { HousesModule } from './houses/houses.module';
 import { UsersModule } from './users/users.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { EmailService } from './email/email.service';
+import { GuardsModule } from './guards/guards.module';
 
 @Module({
   imports: [
@@ -19,6 +21,12 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
         POSTGRES_USERNAME: Joi.string().required(),
         POSTGRES_PASSWORD: Joi.string().required(),
         PORT: Joi.number().required(),
+        JWT_VERIFICATION_TOKEN_SECRET: Joi.string().required(),
+        JWT_VERIFICATION_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+        EMAIL_CONFIRMATION_URL: Joi.string().required(),
+        EMAIL_SERVICE: Joi.string().required(),
+        EMAIL_USER: Joi.string().required(),
+        EMAIL_PASSWORD: Joi.string().required(),
       }),
     }),
     AuthModule,
@@ -26,7 +34,8 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
     UsersModule,
     HousesModule,
     SubscriptionsModule,
+    GuardsModule,
   ],
-  providers: [JwtService, AuthService],
+  providers: [JwtService, AuthService, EmailService],
 })
 export class AppModule {}

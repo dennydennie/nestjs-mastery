@@ -85,6 +85,18 @@ let UsersService = class UsersService {
         }
         user.forgotPasswordToken = crypto.randomUUID();
         await this.userRepository.save(user);
+        const url = `${this.configService.get('EMAIL_CONFIRMATION_URL')}?token=${user.forgotPasswordToken}`;
+        const text = `Welcome to the application. To confirm the email address, click here: ${url}`;
+        return this.emailService.sendMail({
+            to: email,
+            subject: 'Email confirmation',
+            text,
+        });
+    }
+    async markEmail(email) {
+        return this.userRepository.update({ email }, {
+            isEmailConfirmed: true,
+        });
     }
 };
 UsersService = __decorate([

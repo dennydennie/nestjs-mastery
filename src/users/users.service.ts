@@ -14,6 +14,8 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
+  emailService: any;
+  configService: any;
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
@@ -96,6 +98,25 @@ export class UsersService {
 
     await this.userRepository.save(user);
 
-    //await this.emailService.sendForgotPassword(user);
+    const url = `${this.configService.get('EMAIL_CONFIRMATION_URL')}?token=${
+      user.forgotPasswordToken
+    }`;
+
+    const text = `Welcome to the application. To confirm the email address, click here: ${url}`;
+
+    return this.emailService.sendMail({
+      to: email,
+      subject: 'Email confirmation',
+      text,
+    });
+  }
+
+  async markEmail(email: string) {
+    return this.userRepository.update(
+      { email },
+      {
+        isEmailConfirmed: true,
+      },
+    );
   }
 }

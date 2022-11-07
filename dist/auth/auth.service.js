@@ -11,12 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/users.service");
-const bcrypt = require("bcrypt");
 const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
-const postgresErrorCodes_enum_1 = require("../database/postgresErrorCodes.enum");
+const bcrypt = require("bcrypt");
 const bycontract_1 = require("bycontract");
+const postgresErrorCodes_enum_1 = require("../database/postgresErrorCodes.enum");
+const users_service_1 = require("../users/users.service");
 let AuthService = class AuthService {
     constructor(usersService, jwtService, configService) {
         this.usersService = usersService;
@@ -70,6 +70,36 @@ let AuthService = class AuthService {
     async forgotPassword(email) {
         (0, bycontract_1.validate)([email], ['string']);
         this.usersService.forgotPassword(email);
+    }
+    async decode(token) {
+        try {
+            const payload = await this.jwtService.verify(token, {
+                secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
+            });
+            if (typeof payload === 'object' && 'email' in payload) {
+                return payload.email;
+            }
+            throw new common_1.BadRequestException();
+        }
+        catch (error) {
+            if ((error === null || error === void 0 ? void 0 : error.name) === 'TokenExpiredError') {
+                throw new common_1.BadRequestException('EMail confirmation token expired');
+            }
+            throw new common_1.BadRequestException('Bad confirmation token');
+        }
+    }
+    async confirm(email) {
+        const user = await this.usersService.findByEmail(email);
+        if (user.isEmailConfirmed) {
+            throw new common_1.BadRequestException('Email already confimed');
+        }
+    }
+    async resend(userId) {
+        const user = await this.usersService.getById(userId);
+        if (user.isEmailConfirmed) {
+            throw new common_1.BadRequestException('Email already confirmed');
+        }
+        await this.usersService.verifyEmail(user.email, token);
     }
 };
 AuthService = __decorate([

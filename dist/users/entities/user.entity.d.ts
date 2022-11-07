@@ -11,6 +11,7 @@ declare class User {
     maritialStatus?: string;
     familySize?: number;
     houses?: House[];
+    isEmailConfirmed: boolean;
     subscriptions?: Subscription[];
 }
 export default User;

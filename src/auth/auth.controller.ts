@@ -7,16 +7,18 @@ import {
   Query,
   Req,
   Res,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { request } from 'https';
 import { AuthService } from './auth.service';
+import { ConfirmEmailDto } from './dto/confirm-email.dto';
 import { RegisterDto } from './dto/register.dto';
 import ResetPasswordDto from './dto/reset-password.dto';
 import RequestWithUser from './requestWithUser.interface';
 import { Public } from './strategies/constants';
-import { LocalAuthGuard } from './strategies/local/localAuth.guard';
+import { LocalAuthGuard } from '../guards/local.guard';
 
 @Controller('auth')
 @ApiTags('Authentication')
@@ -90,5 +92,18 @@ export class AuthController {
   @HttpCode(200)
   async forgotPassword(@Query('email') email: string): Promise<void> {
     await this.authService.forgotPassword(email);
+  }
+
+  @Post('/confirm')
+  async confirm(@Body() confirmationData: ConfirmEmailDto) {
+    const email = await this.authService.decode(confirmationData.token);
+
+    await this.authService.confirm(email);
+    return email;
+  }
+
+  @Post('resend-confirmation')
+  async resend(@Req() request: RequestWithUser) {
+    await this.authService.resend(request.user.id);
   }
 }

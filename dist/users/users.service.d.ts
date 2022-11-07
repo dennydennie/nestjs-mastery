@@ -3,6 +3,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import User from './entities/user.entity';
 export declare class UsersService {
     private userRepository;
+    emailService: any;
+    configService: any;
     constructor(userRepository: Repository<User>);
     create(createUserDto: CreateUserDto): Promise<User>;
     findAll(): Promise<User[]>;
@@ -10,5 +12,6 @@ export declare class UsersService {
     getById(userId: string): Promise<User>;
     resetPassword(email: string, password: string, token: string): Promise<void>;
     verifyEmail(email: string, token: string): Promise<User>;
-    forgotPassword(email: string): Promise<void>;
+    forgotPassword(email: string): Promise<any>;
+    markEmail(email: string): Promise<import("typeorm").UpdateResult>;
 }

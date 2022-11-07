@@ -8,7 +8,8 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt/jwt.strategy';
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './strategies/jwt/jwtAuthGuard.guard';
+import { JwtAuthGuard } from '../guards/jwt.guard';
+import { EmailConfirmationGuard } from 'src/guards/confirm-email.guard';
 
 @Module({
   imports: [
@@ -32,6 +33,11 @@ import { JwtAuthGuard } from './strategies/jwt/jwtAuthGuard.guard';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
+
+    // { activate in production
+    //   provide: APP_GUARD,
+    //   useClass: EmailConfirmationGuard,
+    // },
     AuthService,
     LocalStrategy,
     JwtStrategy,

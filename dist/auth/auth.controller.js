@@ -16,6 +16,7 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const auth_service_1 = require("./auth.service");
+const confirm_email_dto_1 = require("./dto/confirm-email.dto");
 const register_dto_1 = require("./dto/register.dto");
 const reset_password_dto_1 = require("./dto/reset-password.dto");
 const constants_1 = require("./strategies/constants");
@@ -49,6 +50,14 @@ let AuthController = class AuthController {
     }
     async forgotPassword(email) {
         await this.authService.forgotPassword(email);
+    }
+    async confirm(confirmationData) {
+        const email = await this.authService.decode(confirmationData.token);
+        await this.authService.confirm(email);
+        return email;
+    }
+    async resend(request) {
+        await this.authService.resend(request.user.id);
     }
 };
 __decorate([
@@ -121,6 +130,20 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
+__decorate([
+    (0, common_1.Post)('/confirm'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [confirm_email_dto_1.ConfirmEmailDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "confirm", null);
+__decorate([
+    (0, common_1.Post)('resend-confirmation'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "resend", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     (0, swagger_1.ApiTags)('Authentication'),

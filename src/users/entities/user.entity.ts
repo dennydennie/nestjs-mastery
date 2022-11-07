@@ -36,6 +36,9 @@ class User {
   @OneToMany(() => House, (house: House) => house.owner)
   public houses?: House[];
 
+  @Column({ default: false, nullable: true })
+  public isEmailConfirmed: boolean;
+
   @OneToMany(
     () => Subscription,
     (subscription: Subscription) => subscription.customer,

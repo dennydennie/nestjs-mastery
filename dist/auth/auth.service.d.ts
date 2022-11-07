@@ -1,9 +1,9 @@
-import { UsersService } from 'src/users/users.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import User from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/users.service';
+import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
 export declare class AuthService {
     private readonly usersService;
     private readonly jwtService;
@@ -16,4 +16,7 @@ export declare class AuthService {
     resetPassword(email: string, password: string, token: string): Promise<void>;
     verifyEmail(email: string, token: string): Promise<User>;
     forgotPassword(email: string): Promise<void>;
+    decode(token: string): Promise<any>;
+    confirm(email: string): Promise<void>;
+    resend(userId: string): Promise<void>;
 }
