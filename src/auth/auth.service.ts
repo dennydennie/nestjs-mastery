@@ -2,13 +2,12 @@ import {
   BadRequestException,
   HttpException,
   HttpStatus,
-  Injectable,
+  Injectable
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { validate } from 'bycontract';
-import { randomUUID } from 'crypto';
 import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
 import User from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
@@ -76,6 +75,7 @@ export class AuthService {
       'JWT_EXPIRATION_TIME',
     )}`;
   }
+  
   public getCookieForLogOut() {
     return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
   }

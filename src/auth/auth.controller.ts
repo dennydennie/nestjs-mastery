@@ -90,11 +90,12 @@ export class AuthController {
   @Public()
   @ApiOperation({ summary: 'Send a forgot password email for a login' })
   @HttpCode(200)
-  async forgotPassword(@Query('email') email: string): Promise<void> {
+  async forgotPassword(@Body('email') email: string): Promise<void> {
     await this.authService.forgotPassword(email);
   }
 
   @Post('/confirm')
+  @Public()
   async confirm(@Body() confirmationData: ConfirmEmailDto) {
     const email = await this.authService.decode(confirmationData.token);
 
@@ -103,6 +104,7 @@ export class AuthController {
   }
 
   @Post('resend-confirmation')
+  @Public()
   async resend(@Req() request: RequestWithUser) {
     await this.authService.resend(request.user.id);
   }

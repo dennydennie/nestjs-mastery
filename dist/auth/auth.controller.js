@@ -20,7 +20,7 @@ const confirm_email_dto_1 = require("./dto/confirm-email.dto");
 const register_dto_1 = require("./dto/register.dto");
 const reset_password_dto_1 = require("./dto/reset-password.dto");
 const constants_1 = require("./strategies/constants");
-const localAuth_guard_1 = require("./strategies/local/localAuth.guard");
+const local_guard_1 = require("../guards/local.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -61,7 +61,7 @@ let AuthController = class AuthController {
     }
 };
 __decorate([
-    (0, common_1.UseGuards)(localAuth_guard_1.LocalAuthGuard),
+    (0, common_1.UseGuards)(local_guard_1.LocalAuthGuard),
     (0, constants_1.Public)(),
     (0, common_1.Post)('register'),
     (0, swagger_1.ApiOperation)({
@@ -74,7 +74,7 @@ __decorate([
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.HttpCode)(200),
-    (0, common_1.UseGuards)(localAuth_guard_1.LocalAuthGuard),
+    (0, common_1.UseGuards)(local_guard_1.LocalAuthGuard),
     (0, constants_1.Public)(),
     (0, common_1.Post)('login'),
     (0, swagger_1.ApiOperation)({
@@ -125,13 +125,14 @@ __decorate([
     (0, constants_1.Public)(),
     (0, swagger_1.ApiOperation)({ summary: 'Send a forgot password email for a login' }),
     (0, common_1.HttpCode)(200),
-    __param(0, (0, common_1.Query)('email')),
+    __param(0, (0, common_1.Body)('email')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
 __decorate([
     (0, common_1.Post)('/confirm'),
+    (0, constants_1.Public)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [confirm_email_dto_1.ConfirmEmailDto]),
@@ -139,6 +140,7 @@ __decorate([
 ], AuthController.prototype, "confirm", null);
 __decorate([
     (0, common_1.Post)('resend-confirmation'),
+    (0, constants_1.Public)(),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

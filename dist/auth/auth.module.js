@@ -17,7 +17,7 @@ const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
 const jwt_strategy_1 = require("./strategies/jwt/jwt.strategy");
 const core_1 = require("@nestjs/core");
-const jwtAuthGuard_guard_1 = require("./strategies/jwt/jwtAuthGuard.guard");
+const jwt_guard_1 = require("../guards/jwt.guard");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -40,7 +40,7 @@ AuthModule = __decorate([
         providers: [
             {
                 provide: core_1.APP_GUARD,
-                useClass: jwtAuthGuard_guard_1.JwtAuthGuard,
+                useClass: jwt_guard_1.JwtAuthGuard,
             },
             auth_service_1.AuthService,
             local_strategy_1.LocalStrategy,

@@ -18,6 +18,7 @@ const houses_module_1 = require("./houses/houses.module");
 const users_module_1 = require("./users/users.module");
 const subscriptions_module_1 = require("./subscriptions/subscriptions.module");
 const email_service_1 = require("./email/email.service");
+const guards_module_1 = require("./guards/guards.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -44,6 +45,7 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             houses_module_1.HousesModule,
             subscriptions_module_1.SubscriptionsModule,
+            guards_module_1.GuardsModule,
         ],
         providers: [jwt_1.JwtService, auth_service_1.AuthService, email_service_1.EmailService],
     })
