@@ -1,5 +1,11 @@
 import { StreamableFile } from '@nestjs/common';
-import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
 import { Readable } from 'stream';
@@ -69,6 +75,13 @@ export default class HouseDto {
   @IsBoolean()
   public hasCelling: boolean;
 
+  @IsBoolean()
+  public hasBuiltInCupboards: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  public isRequest?: boolean;
+
   static fromModel(house: House): HouseDto {
     const stream = house?.photo && Readable.from(house?.photo?.data);
 
@@ -94,6 +107,8 @@ export default class HouseDto {
       isWalled: house.isWalled,
       hasOwnEntrance: house.hasOwnEntrance,
       hasCelling: house.hasCelling,
+      hasBuiltInCupboards: house.hasBuiltInCupboards,
+      isRequest: house.isRequest,
     };
   }
 }

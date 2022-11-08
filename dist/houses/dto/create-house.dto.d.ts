@@ -15,4 +15,11 @@ export declare class CreateHouseDto {
     hasElectricity: boolean;
     hasBackupElectricity: boolean;
     status: string;
+    hasParkingSpace: boolean;
+    isTilled: boolean;
+    isWalled: boolean;
+    hasOwnEntrance: boolean;
+    hasCelling: boolean;
+    hasBuiltInCupboards: boolean;
+    isRequest?: boolean;
 }

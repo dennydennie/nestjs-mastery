@@ -40,6 +40,8 @@ class HouseDto {
             isWalled: house.isWalled,
             hasOwnEntrance: house.hasOwnEntrance,
             hasCelling: house.hasCelling,
+            hasBuiltInCupboards: house.hasBuiltInCupboards,
+            isRequest: house.isRequest,
         };
     }
 }
@@ -127,5 +129,14 @@ __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], HouseDto.prototype, "hasCelling", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], HouseDto.prototype, "hasBuiltInCupboards", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], HouseDto.prototype, "isRequest", void 0);
 exports.default = HouseDto;
 //# sourceMappingURL=house.dto.js.map

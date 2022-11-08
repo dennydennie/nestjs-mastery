@@ -54,24 +54,30 @@ export default class House extends BaseEntity {
   @Column()
   public hasElectricity: boolean;
 
-  @Column()
+  @Column({default: false})
   public hasBackupElectricity: boolean;
 
   @Column()
   public status: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   public hasParkingSpace: boolean;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   public isTilled: boolean;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   public isWalled: boolean;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   public hasOwnEntrance: boolean;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true , default: false})
   public hasCelling: boolean;
+
+  @Column({ nullable: true, default: false })
+  public hasBuiltInCupboards: boolean;
+
+  @Column({ nullable: true, default: false })
+  public isRequest?: boolean;
 }

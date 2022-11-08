@@ -71,5 +71,34 @@ __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", String)
 ], CreateHouseDto.prototype, "status", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateHouseDto.prototype, "hasParkingSpace", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateHouseDto.prototype, "isTilled", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateHouseDto.prototype, "isWalled", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateHouseDto.prototype, "hasOwnEntrance", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateHouseDto.prototype, "hasCelling", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateHouseDto.prototype, "hasBuiltInCupboards", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], CreateHouseDto.prototype, "isRequest", void 0);
 exports.CreateHouseDto = CreateHouseDto;
 //# sourceMappingURL=create-house.dto.js.map

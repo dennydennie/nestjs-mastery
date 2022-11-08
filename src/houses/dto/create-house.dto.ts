@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
 import AddressDto from 'src/houses/dto/create-address.dto';
 import { PhotoDto } from './photo.dto';
 
@@ -44,4 +44,26 @@ export class CreateHouseDto {
 
   @IsBoolean()
   public status: string;
+
+  @IsBoolean()
+  public hasParkingSpace: boolean;
+
+  @IsBoolean()
+  public isTilled: boolean;
+
+  @IsBoolean()
+  public isWalled: boolean;
+
+  @IsBoolean()
+  public hasOwnEntrance: boolean;
+
+  @IsBoolean()
+  public hasCelling: boolean;
+
+  @IsBoolean()
+  public hasBuiltInCupboards: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  public isRequest?: boolean
 }

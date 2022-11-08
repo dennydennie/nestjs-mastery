@@ -23,4 +23,6 @@ export default class House extends BaseEntity {
     isWalled: boolean;
     hasOwnEntrance: boolean;
     hasCelling: boolean;
+    hasBuiltInCupboards: boolean;
+    isRequest?: boolean;
 }

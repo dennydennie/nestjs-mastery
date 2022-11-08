@@ -23,5 +23,7 @@ export default class HouseDto {
     isWalled: boolean;
     hasOwnEntrance: boolean;
     hasCelling: boolean;
+    hasBuiltInCupboards: boolean;
+    isRequest?: boolean;
     static fromModel(house: House): HouseDto;
 }
