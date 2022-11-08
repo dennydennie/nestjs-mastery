@@ -1,4 +1,4 @@
-import { BaseEntity } from 'src/database/entities/abstract-entity';
+import BaseEntity from 'src/database/entities/abstract-entity';
 import User from 'src/users/entities/user.entity';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import Payment from './payment.entity';

@@ -1,5 +1,5 @@
-import  BaseEntity  from 'src/database/entities/abstract-entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from 'src/database/entities/abstract-entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
 export default class Address extends BaseEntity {

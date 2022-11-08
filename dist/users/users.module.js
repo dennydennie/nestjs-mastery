@@ -20,7 +20,7 @@ let UsersModule = class UsersModule {
 UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([user_entity_1.default, house_entity_1.House]),
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.default, house_entity_1.default]),
             config_1.ConfigModule,
             email_module_1.default,
             jwt_1.JwtModule,

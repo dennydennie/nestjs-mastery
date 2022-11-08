@@ -1,6 +1,5 @@
 import { IsString } from 'class-validator';
-import { Address } from '../entities/address.entity';
-import { CreateHouseDto } from './create-house.dto';
+import Address from '../entities/address.entity';
 
 export default class AddressDto {
   @IsString()
@@ -16,7 +15,6 @@ export default class AddressDto {
   public city: string;
 
   static fromModel(address: Address): AddressDto {
-
     return {
       houseNumber: address.houseNumber,
       street: address.street,

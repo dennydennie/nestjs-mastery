@@ -4,7 +4,7 @@ import User from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateHouseDto } from './dto/create-house.dto';
 import { UpdateHouseDto } from './dto/update-house.dto';
-import { House } from './entities/house.entity';
+import House  from './entities/house.entity';
 import { HousesPhotoService } from './houses-photo.service';
 
 @Injectable()

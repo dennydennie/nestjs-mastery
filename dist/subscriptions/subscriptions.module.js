@@ -17,7 +17,7 @@ let SubscriptionsModule = class SubscriptionsModule {
 };
 SubscriptionsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([subscription_entity_1.Subscription, payment_entity_1.Payment])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([subscription_entity_1.default, payment_entity_1.default])],
         controllers: [subscriptions_controller_1.SubscriptionsController],
         providers: [subscriptions_service_1.SubscriptionsService],
     })

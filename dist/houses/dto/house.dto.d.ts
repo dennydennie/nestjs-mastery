@@ -1,6 +1,6 @@
 import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
-import { House } from '../entities/house.entity';
+import House from '../entities/house.entity';
 export default class HouseDto {
     id: string;
     rentalFee: number;

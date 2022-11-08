@@ -13,7 +13,7 @@ const abstract_entity_1 = require("../../database/entities/abstract-entity");
 const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
 const payment_entity_1 = require("./payment.entity");
-let Subscription = class Subscription extends abstract_entity_1.BaseEntity {
+let Subscription = class Subscription extends abstract_entity_1.default {
 };
 __decorate([
     (0, typeorm_1.OneToMany)(() => user_entity_1.default, (user) => user.subscriptions),

@@ -10,11 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const class_transformer_1 = require("class-transformer");
-const typeorm_1 = require("typeorm");
-const house_entity_1 = require("../../houses/entities/house.entity");
 const abstract_entity_1 = require("../../database/entities/abstract-entity");
+const house_entity_1 = require("../../houses/entities/house.entity");
 const subscription_entity_1 = require("../../subscriptions/entities/subscription.entity");
-let User = class User extends abstract_entity_1.BaseEntity {
+const typeorm_1 = require("typeorm");
+let User = class User extends abstract_entity_1.default {
 };
 __decorate([
     (0, typeorm_1.Column)(),

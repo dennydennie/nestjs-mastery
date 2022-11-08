@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UsersModule } from 'src/users/users.module';
-import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './strategies/local/local.strategy';
-import { AuthController } from './auth.controller';
-import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtStrategy } from './strategies/jwt/jwt.strategy';
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from '../guards/jwt.guard';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { EmailConfirmationGuard } from 'src/guards/confirm-email.guard';
+import { UsersModule } from 'src/users/users.module';
+import { JwtAuthGuard } from '../guards/jwt.guard';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategies/jwt/jwt.strategy';
+import { LocalStrategy } from './strategies/local/local.strategy';
 
 @Module({
   imports: [
@@ -33,15 +33,15 @@ import { EmailConfirmationGuard } from 'src/guards/confirm-email.guard';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
-
-    // { activate in production
-    //   provide: APP_GUARD,
-    //   useClass: EmailConfirmationGuard,
-    // },
+    {
+      provide: APP_GUARD,
+      useClass: EmailConfirmationGuard,
+    },
     AuthService,
     LocalStrategy,
     JwtStrategy,
   ],
+
   controllers: [AuthController],
 })
 export class AuthModule {}

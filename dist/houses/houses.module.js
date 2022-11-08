@@ -20,7 +20,7 @@ let HousesModule = class HousesModule {
 };
 HousesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([house_entity_1.House, user_entity_1.default, address_entity_1.Address, photo_entity_1.Photo])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([house_entity_1.default, user_entity_1.default, address_entity_1.default, photo_entity_1.default])],
         controllers: [houses_controller_1.HousesController],
         providers: [houses_service_1.HousesService, houses_photo_service_1.HousesPhotoService],
     })

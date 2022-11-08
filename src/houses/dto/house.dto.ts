@@ -3,7 +3,7 @@ import { IsBoolean, IsNumber, IsObject, IsString } from 'class-validator';
 import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
 import { Readable } from 'stream';
-import { House } from '../entities/house.entity';
+import House from '../entities/house.entity';
 
 export default class HouseDto {
   @IsString()

@@ -1,4 +1,4 @@
-import { Address } from '../entities/address.entity';
+import Address from '../entities/address.entity';
 export default class AddressDto {
     houseNumber: string;
     street: string;

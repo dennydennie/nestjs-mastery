@@ -64,7 +64,7 @@ let HousesService = class HousesService {
 };
 HousesService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(house_entity_1.House)),
+    __param(0, (0, typeorm_1.InjectRepository)(house_entity_1.default)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         houses_photo_service_1.HousesPhotoService])
 ], HousesService);

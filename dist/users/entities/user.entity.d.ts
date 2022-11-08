@@ -1,5 +1,5 @@
+import BaseEntity from 'src/database/entities/abstract-entity';
 import House from 'src/houses/entities/house.entity';
-import { BaseEntity } from 'src/database/entities/abstract-entity';
 import Subscription from 'src/subscriptions/entities/subscription.entity';
 export default class User extends BaseEntity {
     name: string;

@@ -1,8 +1,8 @@
 import { Exclude } from 'class-transformer';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from 'src/database/entities/abstract-entity';
 import House from 'src/houses/entities/house.entity';
-import { BaseEntity } from 'src/database/entities/abstract-entity';
 import Subscription from 'src/subscriptions/entities/subscription.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
 export default class User extends BaseEntity {
