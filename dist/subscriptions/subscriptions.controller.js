@@ -14,28 +14,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionsController = void 0;
 const common_1 = require("@nestjs/common");
-const subscriptions_service_1 = require("./subscriptions.service");
-const create_subscription_dto_1 = require("./dto/create-subscription.dto");
-const update_subscription_dto_1 = require("./dto/update-subscription.dto");
 const swagger_1 = require("@nestjs/swagger");
+const create_subscription_dto_1 = require("./dto/create-subscription.dto");
+const subscriptions_service_1 = require("./subscriptions.service");
 let SubscriptionsController = class SubscriptionsController {
     constructor(subscriptionsService) {
         this.subscriptionsService = subscriptionsService;
     }
-    create(createSubscriptionDto) {
-        return this.subscriptionsService.create(createSubscriptionDto);
+    create(request, createSubscriptionDto) {
+        return this.subscriptionsService.create(request.user, createSubscriptionDto);
     }
     findAll() {
         return this.subscriptionsService.findAll();
     }
     findOne(id) {
-        return this.subscriptionsService.findOne(+id);
-    }
-    update(id, updateSubscriptionDto) {
-        return this.subscriptionsService.update(+id, updateSubscriptionDto);
+        return this.subscriptionsService.findOne(id);
     }
     remove(id) {
-        return this.subscriptionsService.remove(+id);
+        return this.subscriptionsService.remove(id);
     }
 };
 __decorate([
@@ -43,9 +39,10 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Create a subscription',
     }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_subscription_dto_1.CreateSubscriptionDto]),
+    __metadata("design:paramtypes", [Object, create_subscription_dto_1.CreateSubscriptionDto]),
     __metadata("design:returntype", void 0)
 ], SubscriptionsController.prototype, "create", null);
 __decorate([
@@ -72,13 +69,6 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Update a subscription by id',
     }),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_subscription_dto_1.UpdateSubscriptionDto]),
-    __metadata("design:returntype", void 0)
-], SubscriptionsController.prototype, "update", null);
-__decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Delete one subscription by id',

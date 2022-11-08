@@ -15,12 +15,16 @@ let Payment = class Payment extends abstract_entity_1.default {
 };
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Payment.prototype, "amount", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Payment.prototype, "reference", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false, nullable: true }),
+    __metadata("design:type", Boolean)
+], Payment.prototype, "isClaimed", void 0);
 Payment = __decorate([
     (0, typeorm_1.Entity)()
 ], Payment);

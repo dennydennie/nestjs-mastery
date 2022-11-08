@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const abstract_entity_1 = require("../../database/entities/abstract-entity");
 const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
-const payment_entity_1 = require("./payment.entity");
 let Subscription = class Subscription extends abstract_entity_1.default {
 };
 __decorate([
@@ -24,10 +23,13 @@ __decorate([
     __metadata("design:type", String)
 ], Subscription.prototype, "type", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => payment_entity_1.default, { eager: true }),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", payment_entity_1.default)
-], Subscription.prototype, "payment", void 0);
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
+], Subscription.prototype, "expiryDate", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Subscription.prototype, "paymentId", void 0);
 Subscription = __decorate([
     (0, typeorm_1.Entity)()
 ], Subscription);

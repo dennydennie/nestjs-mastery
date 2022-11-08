@@ -36,6 +36,7 @@ export class AuthController {
   }
 
   @HttpCode(200)
+  @UseGuards(LocalAuthGuard)
   @Public()
   @Post('login')
   @ApiOperation({
@@ -107,7 +108,7 @@ export class AuthController {
     return await this.authService.markEmail(token);
   }
 
-  @Post('resend-confirmation')
+  @Post('/resend-verify-email')
   @Public()
   async resend(@Req() request: RequestWithUser) {
     await this.authService.resend(request.user.id);

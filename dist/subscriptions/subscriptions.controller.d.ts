@@ -1,12 +1,11 @@
-import { SubscriptionsService } from './subscriptions.service';
+import RequestWithUser from 'src/auth/requestWithUser.interface';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
-import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
+import { SubscriptionsService } from './subscriptions.service';
 export declare class SubscriptionsController {
     private readonly subscriptionsService;
     constructor(subscriptionsService: SubscriptionsService);
-    create(createSubscriptionDto: CreateSubscriptionDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateSubscriptionDto: UpdateSubscriptionDto): string;
-    remove(id: string): string;
+    create(request: RequestWithUser, createSubscriptionDto: CreateSubscriptionDto): Promise<import("./entities/subscription.entity").default>;
+    findAll(): Promise<import("./entities/subscription.entity").default[]>;
+    findOne(id: string): Promise<import("./entities/subscription.entity").default>;
+    remove(id: string): Promise<import("typeorm").UpdateResult>;
 }

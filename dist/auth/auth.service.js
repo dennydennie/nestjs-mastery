@@ -79,7 +79,6 @@ let AuthService = class AuthService {
         if (user.isEmailConfirmed) {
             throw new common_1.BadRequestException('Email already confirmed');
         }
-        const token = '1231112mans';
         await this.usersService.verifyEmail(user.email);
     }
 };

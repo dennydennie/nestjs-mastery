@@ -1,7 +1,6 @@
 import BaseEntity from 'src/database/entities/abstract-entity';
 import User from 'src/users/entities/user.entity';
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
-import Payment from './payment.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity()
 export default class Subscription extends BaseEntity {
@@ -11,7 +10,9 @@ export default class Subscription extends BaseEntity {
   @Column()
   public type: string;
 
-  @OneToOne(() => Payment, { eager: true })
-  @JoinColumn()
-  public payment: Payment;
+  @Column()
+  public expiryDate: Date;
+
+  @Column({ nullable: true })
+  public paymentId?: string;
 }

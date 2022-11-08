@@ -1,16 +1,10 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
+  Body, Controller, Delete, Get, Param, Patch, Post, Req
 } from '@nestjs/common';
-import { SubscriptionsService } from './subscriptions.service';
-import { CreateSubscriptionDto } from './dto/create-subscription.dto';
-import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import RequestWithUser from 'src/auth/requestWithUser.interface';
+import { CreateSubscriptionDto } from './dto/create-subscription.dto';
+import { SubscriptionsService } from './subscriptions.service';
 
 @Controller('subscriptions')
 @ApiTags('Subscriptions')
@@ -21,8 +15,14 @@ export class SubscriptionsController {
   @ApiOperation({
     summary: 'Create a subscription',
   })
-  create(@Body() createSubscriptionDto: CreateSubscriptionDto) {
-    return this.subscriptionsService.create(createSubscriptionDto);
+  create(
+    @Req() request: RequestWithUser,
+    @Body() createSubscriptionDto: CreateSubscriptionDto,
+  ) {
+    return this.subscriptionsService.create(
+      request.user,
+      createSubscriptionDto,
+    );
   }
 
   @Get()
@@ -38,25 +38,20 @@ export class SubscriptionsController {
     summary: 'Find one subscription by id',
   })
   findOne(@Param('id') id: string) {
-    return this.subscriptionsService.findOne(+id);
+    return this.subscriptionsService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({
     summary: 'Update a subscription by id',
   })
-  update(
-    @Param('id') id: string,
-    @Body() updateSubscriptionDto: UpdateSubscriptionDto,
-  ) {
-    return this.subscriptionsService.update(+id, updateSubscriptionDto);
-  }
+
 
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete one subscription by id',
   })
   remove(@Param('id') id: string) {
-    return this.subscriptionsService.remove(+id);
+    return this.subscriptionsService.remove(id);
   }
 }

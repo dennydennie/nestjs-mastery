@@ -33,10 +33,10 @@ import { LocalStrategy } from './strategies/local/local.strategy';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
-    {
-      provide: APP_GUARD,
-      useClass: EmailConfirmationGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: EmailConfirmationGuard,
+    // },
     AuthService,
     LocalStrategy,
     JwtStrategy,

@@ -108,7 +108,6 @@ export class AuthService {
       throw new BadRequestException('Email already confirmed');
     }
 
-    const token = '1231112mans';
     await this.usersService.verifyEmail(user.email);
   }
 }

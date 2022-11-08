@@ -20,6 +20,7 @@ const confirm_email_dto_1 = require("./dto/confirm-email.dto");
 const register_dto_1 = require("./dto/register.dto");
 const reset_password_dto_1 = require("./dto/reset-password.dto");
 const constants_1 = require("./strategies/constants");
+const local_guard_1 = require("../guards/local.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -73,6 +74,7 @@ __decorate([
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.HttpCode)(200),
+    (0, common_1.UseGuards)(local_guard_1.LocalAuthGuard),
     (0, constants_1.Public)(),
     (0, common_1.Post)('login'),
     (0, swagger_1.ApiOperation)({
@@ -147,7 +149,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "markEmail", null);
 __decorate([
-    (0, common_1.Post)('resend-confirmation'),
+    (0, common_1.Post)('/resend-verify-email'),
     (0, constants_1.Public)(),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),

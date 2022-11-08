@@ -1,26 +1,74 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import UserDto from 'src/users/dto/user.dto';
+import { IsNull, Repository } from 'typeorm';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
-import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
+import Payment from './entities/payment.entity';
+import Subscription from './entities/subscription.entity';
+import * as moment from 'moment';
 
 @Injectable()
 export class SubscriptionsService {
-  create(createSubscriptionDto: CreateSubscriptionDto) {
-    return 'This action adds a new subscription';
+  constructor(
+    @InjectRepository(Subscription)
+    private subscriptionsRepository: Repository<Subscription>,
+    @InjectRepository(Payment)
+    private paymentRepository: Repository<Payment>,
+  ) {}
+
+  async create(user: UserDto, createSubscriptionDto: CreateSubscriptionDto) {
+    const payment = await this.paymentRepository.findOneBy({
+      reference: createSubscriptionDto.paymentReference,
+      isClaimed: false,
+    });
+
+    if (payment) {
+      const newSubscription = await this.subscriptionsRepository.create({
+        customer: user,
+        type: 'Basic',
+        paymentId: payment.id,
+        expiryDate: moment(new Date()).add(30, 'days').toDate(),
+      });
+      if (newSubscription) {
+        await this.paymentRepository.update(
+          {
+            id: payment.id,
+          },
+          {
+            isClaimed: true,
+          },
+        );
+
+        return await this.subscriptionsRepository.save(newSubscription);
+      }
+    }
+
+    throw new HttpException(
+      'Invalid payment reference',
+      HttpStatus.BAD_REQUEST,
+    );
   }
 
-  findAll() {
-    return `This action returns all subscriptions`;
+  async findAll() {
+    return await this.subscriptionsRepository.findBy({
+      deletedAt: IsNull(),
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} subscription`;
+  async findOne(id: string) {
+    const subscription = await this.subscriptionsRepository.findOneBy({
+      id,
+    });
+    if (!subscription) {
+      throw new HttpException(
+        'Subscription is not available',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return subscription;
   }
 
-  update(id: number, updateSubscriptionDto: UpdateSubscriptionDto) {
-    return `This action updates a #${id} subscription`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} subscription`;
+  async remove(id: string) {
+    return await this.subscriptionsRepository.softDelete(id);
   }
 }
