@@ -1,29 +1,33 @@
 import {
+  BadRequestException,
   HttpException,
   HttpStatus,
-  Inject,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import User from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { EmailService } from 'src/email/email.service';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
+import User from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  emailService: any;
-  configService: any;
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private configService: ConfigService,
+    private emailService: EmailService,
+    private jwtService: JwtService,
   ) {}
   async create(createUserDto: CreateUserDto) {
     const newUser = await this.userRepository.create(createUserDto);
     if (newUser) {
       await this.userRepository.save(newUser);
+      await this.verifyEmail(newUser.email);
       return newUser;
     }
     throw new HttpException('Failed to add new user', HttpStatus.BAD_REQUEST);
@@ -53,6 +57,7 @@ export class UsersService {
     }
     throw new HttpException('User does not exist.', HttpStatus.NOT_FOUND);
   }
+
   async resetPassword(email: string, password: string, token: string) {
     const user = await this.userRepository.findOneBy({
       email,
@@ -65,24 +70,8 @@ export class UsersService {
 
     user.password = await bcrypt.hash(password, 10);
     user.forgotPasswordToken = null;
-    user.verifyEmailToken = null;
 
     await this.userRepository.save(user);
-  }
-
-  async verifyEmail(email: string, token: string) {
-    const user = await this.userRepository.findOneBy({
-      email,
-      verifyEmailToken: token,
-    });
-
-    if (!user) {
-      return;
-    }
-
-    user.verifyEmailToken = null;
-
-    return await this.userRepository.save(user);
   }
 
   async forgotPassword(email: string) {
@@ -94,29 +83,97 @@ export class UsersService {
       return;
     }
 
-    user.forgotPasswordToken = crypto.randomUUID();
+    user.forgotPasswordToken = randomString();
 
     await this.userRepository.save(user);
 
-    const url = `${this.configService.get('EMAIL_CONFIRMATION_URL')}?token=${
-      user.forgotPasswordToken
-    }`;
+    const token = this.jwtService.sign(
+      {
+        email: email,
+        forgotPasswordToken: user.forgotPasswordToken,
+      },
+      { secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET') },
+    );
+
+    const url = `${this.configService.get(
+      'EMAIL_CONFIRMATION_URL',
+    )}reset-password?token=${token}`;
 
     const text = `Welcome to the application. To confirm the email address, click here: ${url}`;
 
-    return this.emailService.sendMail({
-      to: email,
-      subject: 'Email confirmation',
-      text,
-    });
+    return this.emailService.sendMail(email, 'Reset Account', text, url);
   }
 
-  async markEmail(email: string) {
-    return this.userRepository.update(
-      { email },
+  async verifyEmail(email: string) {
+    const user = await this.userRepository.findOneBy({
+      email,
+    });
+
+    if (!user || !!user.isEmailConfirmed) {
+      return;
+    }
+
+    if (user && !!user.isEmailConfirmed) {
+      throw new BadRequestException('Email already confimed');
+    }
+
+    const token = this.jwtService.sign(
       {
-        isEmailConfirmed: true,
+        email: email,
+        verifyEmailToken: user.verifyEmailToken,
       },
+      { secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET') },
+    );
+
+    const url = `${this.configService.get(
+      'EMAIL_CONFIRMATION_URL',
+    )}mark-email?token=${token}`;
+
+    const text = `Welcome to the application. To confirm the email address, click here: ${url}`;
+
+    return this.emailService.sendMail(email, 'On Boarding', text, url);
+  }
+
+  async markEmail(token: string) {
+    const decoded = this.jwtService.decode(
+      token,
+      this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
+    );
+
+    //@ts-ignore
+    const email = decoded.email;
+
+    const user = await this.userRepository.findOneBy({
+      email,
+    });
+
+    if (user && !user.isEmailConfirmed) {
+      const updateResponse = await this.userRepository.update(
+        {
+          id: user.id,
+        },
+        {
+          verifyEmailToken: null,
+          isEmailConfirmed: true,
+        },
+      );
+      if (updateResponse.affected === 1) return HttpStatus.CREATED;
+    }
+    throw new HttpException(
+      'Email has already been verified',
+      HttpStatus.BAD_REQUEST,
     );
   }
+}
+
+export function randomString() {
+  let result = '';
+  const length = 48;
+  const dictionary =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var dictionaryLength = dictionary.length;
+  for (var i = 0; i < length; i++) {
+    result += dictionary.charAt(Math.floor(Math.random() * dictionaryLength));
+  }
+  return result;
 }

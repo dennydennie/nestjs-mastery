@@ -1,5 +1,9 @@
 export declare class RegisterDto {
     name: string;
-    password: string;
     email: string;
+    password: string;
+    verifyEmailToken: string;
+    phone: string;
+    familySize?: number;
+    maritialStatus?: string;
 }

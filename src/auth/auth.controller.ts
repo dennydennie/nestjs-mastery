@@ -13,19 +13,19 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { request } from 'https';
 import { AuthService } from './auth.service';
-import { ConfirmEmailDto } from './dto/confirm-email.dto';
+import { ConfirmEmailDto as VerifyEmailDto } from './dto/confirm-email.dto';
 import { RegisterDto } from './dto/register.dto';
 import ResetPasswordDto from './dto/reset-password.dto';
 import RequestWithUser from './requestWithUser.interface';
 import { Public } from './strategies/constants';
 import { LocalAuthGuard } from '../guards/local.guard';
+import { MarkEmailDto } from './dto/mark-email.dto';
 
 @Controller('auth')
 @ApiTags('Authentication')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
   @Public()
   @Post('register')
   @ApiOperation({
@@ -36,7 +36,6 @@ export class AuthController {
   }
 
   @HttpCode(200)
-  @UseGuards(LocalAuthGuard)
   @Public()
   @Post('login')
   @ApiOperation({
@@ -94,13 +93,18 @@ export class AuthController {
     await this.authService.forgotPassword(email);
   }
 
-  @Post('/confirm')
+  @Post('/verify')
   @Public()
-  async confirm(@Body() confirmationData: ConfirmEmailDto) {
-    const email = await this.authService.decode(confirmationData.token);
+  @ApiOperation({ summary: 'Confirm email address' })
+  async verify(@Body() verifyEmailDto: VerifyEmailDto) {
+    return await this.authService.verifyEmail(verifyEmailDto.email);
+  }
 
-    await this.authService.confirm(email);
-    return email;
+  @Post('/mark-email')
+  @Public()
+  @ApiOperation({ summary: 'Confirm email address' })
+  async markEmail(@Query('token') token: string) {
+    return await this.authService.markEmail(token);
   }
 
   @Post('resend-confirmation')

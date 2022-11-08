@@ -1,10 +1,8 @@
+import  BaseEntity  from 'src/database/entities/abstract-entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Address {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-
+export default class Address extends BaseEntity {
   @Column()
   public houseNumber: string;
 

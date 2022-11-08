@@ -1,20 +1,11 @@
-import { Address } from 'src/houses/entities/address.entity';
+import BaseEntity  from 'src/database/entities/abstract-entity';
+import Address from 'src/houses/entities/address.entity';
 import User from 'src/users/entities/user.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Photo } from './photo.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import Photo from './photo.entity';
 
 @Entity()
-export class House {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-
+export default class House extends BaseEntity {
   @OneToOne(() => Address, { eager: true, cascade: true })
   @JoinColumn()
   public address: Address;
@@ -25,12 +16,12 @@ export class House {
   })
   public owner: User;
 
-  @JoinColumn()
   @OneToOne(() => Photo, {
     eager: true,
     cascade: true,
     nullable: true,
   })
+  @JoinColumn()
   public photo?: Photo;
 
   @Column()

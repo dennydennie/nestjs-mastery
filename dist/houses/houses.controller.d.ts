@@ -7,10 +7,10 @@ import { HousesService } from './houses.service';
 export declare class HousesController {
     private readonly housesService;
     constructor(housesService: HousesService);
-    create(house: CreateHouseDto, req: RequestWithUser): Promise<import("./entities/house.entity").House>;
+    create(house: CreateHouseDto, req: RequestWithUser): Promise<any>;
     findAll(): Promise<HouseDto[]>;
-    findOne(id: string): Promise<import("./entities/house.entity").House>;
-    update(id: string, updateHouseDto: UpdateHouseDto): Promise<import("./entities/house.entity").House>;
+    findOne(id: string): Promise<House>;
+    update(id: string, updateHouseDto: UpdateHouseDto): Promise<House>;
     remove(id: string): Promise<void>;
-    addPhoto(id: string, file: Express.Multer.File): Promise<import("./entities/photo.entity").Photo>;
+    addPhoto(id: string, file: Express.Multer.File): Promise<any>;
 }

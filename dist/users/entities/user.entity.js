@@ -12,13 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const class_transformer_1 = require("class-transformer");
 const typeorm_1 = require("typeorm");
 const house_entity_1 = require("../../houses/entities/house.entity");
+const abstract_entity_1 = require("../../database/entities/abstract-entity");
 const subscription_entity_1 = require("../../subscriptions/entities/subscription.entity");
-let User = class User {
+let User = class User extends abstract_entity_1.BaseEntity {
 };
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
-], User.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -37,7 +34,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "phone", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ unique: true, nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "forgotPasswordToken", void 0);
 __decorate([
@@ -53,7 +50,7 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "familySize", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => house_entity_1.House, (house) => house.owner),
+    (0, typeorm_1.OneToMany)(() => house_entity_1.default, (house) => house.owner),
     __metadata("design:type", Array)
 ], User.prototype, "houses", void 0);
 __decorate([
@@ -61,7 +58,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "isEmailConfirmed", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => subscription_entity_1.Subscription, (subscription) => subscription.customer, { eager: true }),
+    (0, typeorm_1.OneToMany)(() => subscription_entity_1.default, (subscription) => subscription.customer),
     __metadata("design:type", Array)
 ], User.prototype, "subscriptions", void 0);
 User = __decorate([

@@ -13,7 +13,7 @@ let EmailModule = class EmailModule {
 };
 EmailModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigService],
+        imports: [config_1.ConfigModule],
         providers: [email_service_1.EmailService],
         exports: [email_service_1.EmailService],
     })

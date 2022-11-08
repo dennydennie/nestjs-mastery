@@ -1,22 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { createTransport } from 'nodemailer';
-import Mail from 'nodemailer/lib/mailer';
 
 @Injectable()
 export class EmailService {
-  private nodeMailerTransport: Mail;
+  async sendMail(email: string, title: string, text: string, url: string) {
+    const msg = {
+      to: email,
+      from: process.env.SENDGRID_SENDER,
+      subject: title,
+      text: text,
+      html: `<p>${text}</p>
+      <p><strong>Click <a href=${url}>here</a> to proceed</strong></p>`,
+    };
 
-  constructor(private readonly configService: ConfigService) {
-    this.nodeMailerTransport = createTransport({
-      service: configService.get('EMAIL_SERVICE'),
-      auth: {
-        user: configService.get('EMAIL_SERVICE'),
-        pass: configService.get('EMAIL_PASSWORD'),
-      },
-    });
-  }
-  sendMail(options: Mail.Options) {
-    return this.nodeMailerTransport.sendMail(options);
+    const mailer = require('@sendgrid/mail');
+
+    mailer.setApiKey(process.env.SENDGRID_API_KEY);
+    try {
+      await mailer.send(msg);
+    } catch (error) {
+      console.error(error);
+    }
+
+    return;
   }
 }

@@ -2,7 +2,7 @@ import {
   BadRequestException,
   HttpException,
   HttpStatus,
-  Injectable
+  Injectable,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { validate } from 'bycontract';
 import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
 import User from 'src/users/entities/user.entity';
-import { UsersService } from 'src/users/users.service';
+import { randomString, UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import TokenPayload from './tokenPayload.interface';
@@ -20,14 +20,16 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
+    private configService: ConfigService,
   ) {}
   public async register(registerDto: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
+    const verifyEmailToken = randomString();
 
     try {
       const createdUser = await this.usersService.create({
         ...registerDto,
+        verifyEmailToken,
         password: hashedPassword,
       });
       createdUser.password = undefined;
@@ -75,7 +77,7 @@ export class AuthService {
       'JWT_EXPIRATION_TIME',
     )}`;
   }
-  
+
   public getCookieForLogOut() {
     return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
   }
@@ -86,41 +88,18 @@ export class AuthService {
     await this.usersService.resetPassword(email, password, token);
   }
 
-  async verifyEmail(email: string, token: string): Promise<User> {
-    validate([email, token], ['string', 'string']);
-
-    return await this.usersService.verifyEmail(email, token);
-  }
-
   async forgotPassword(email: string) {
     validate([email], ['string']);
 
     this.usersService.forgotPassword(email);
   }
 
-  async decode(token: string) {
-    try {
-      const payload = await this.jwtService.verify(token, {
-        secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
-      });
-      if (typeof payload === 'object' && 'email' in payload) {
-        return payload.email;
-      }
-
-      throw new BadRequestException();
-    } catch (error) {
-      if (error?.name === 'TokenExpiredError') {
-        throw new BadRequestException('EMail confirmation token expired');
-      }
-      throw new BadRequestException('Bad confirmation token');
-    }
+  async markEmail(token: string) {
+    return await this.usersService.markEmail(token);
   }
 
-  async confirm(email: string) {
-    const user = await this.usersService.findByEmail(email);
-    if (user.isEmailConfirmed) {
-      throw new BadRequestException('Email already confimed');
-    }
+  async verifyEmail(email: string) {
+    const sendEmailResponse = await this.usersService.verifyEmail(email);
   }
 
   async resend(userId: string) {
@@ -130,6 +109,6 @@ export class AuthService {
     }
 
     const token = '1231112mans';
-    await this.usersService.verifyEmail(user.email, token);
+    await this.usersService.verifyEmail(user.email);
   }
 }

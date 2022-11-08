@@ -90,6 +90,7 @@ __decorate([
 ], SubscriptionsController.prototype, "remove", null);
 SubscriptionsController = __decorate([
     (0, common_1.Controller)('subscriptions'),
+    (0, swagger_1.ApiTags)('Subscriptions'),
     __metadata("design:paramtypes", [subscriptions_service_1.SubscriptionsService])
 ], SubscriptionsController);
 exports.SubscriptionsController = SubscriptionsController;

@@ -9,21 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.House = void 0;
+const abstract_entity_1 = require("../../database/entities/abstract-entity");
 const address_entity_1 = require("./address.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
 const photo_entity_1 = require("./photo.entity");
-let House = class House {
+let House = class House extends abstract_entity_1.default {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
-], House.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => address_entity_1.Address, { eager: true, cascade: true }),
+    (0, typeorm_1.OneToOne)(() => address_entity_1.default, { eager: true, cascade: true }),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", address_entity_1.Address)
+    __metadata("design:type", address_entity_1.default)
 ], House.prototype, "address", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.default, (owner) => owner.houses, {
@@ -33,13 +29,13 @@ __decorate([
     __metadata("design:type", user_entity_1.default)
 ], House.prototype, "owner", void 0);
 __decorate([
-    (0, typeorm_1.JoinColumn)(),
-    (0, typeorm_1.OneToOne)(() => photo_entity_1.Photo, {
+    (0, typeorm_1.OneToOne)(() => photo_entity_1.default, {
         eager: true,
         cascade: true,
         nullable: true,
     }),
-    __metadata("design:type", photo_entity_1.Photo)
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", photo_entity_1.default)
 ], House.prototype, "photo", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -112,5 +108,5 @@ __decorate([
 House = __decorate([
     (0, typeorm_1.Entity)()
 ], House);
-exports.House = House;
+exports.default = House;
 //# sourceMappingURL=house.entity.js.map

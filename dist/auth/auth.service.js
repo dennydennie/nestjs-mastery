@@ -25,8 +25,9 @@ let AuthService = class AuthService {
     }
     async register(registerDto) {
         const hashedPassword = await bcrypt.hash(registerDto.password, 10);
+        const verifyEmailToken = (0, users_service_1.randomString)();
         try {
-            const createdUser = await this.usersService.create(Object.assign(Object.assign({}, registerDto), { password: hashedPassword }));
+            const createdUser = await this.usersService.create(Object.assign(Object.assign({}, registerDto), { verifyEmailToken, password: hashedPassword }));
             createdUser.password = undefined;
             return createdUser;
         }
@@ -63,36 +64,15 @@ let AuthService = class AuthService {
         (0, bycontract_1.validate)([email, password, token], ['string', 'string', 'string']);
         await this.usersService.resetPassword(email, password, token);
     }
-    async verifyEmail(email, token) {
-        (0, bycontract_1.validate)([email, token], ['string', 'string']);
-        return await this.usersService.verifyEmail(email, token);
-    }
     async forgotPassword(email) {
         (0, bycontract_1.validate)([email], ['string']);
         this.usersService.forgotPassword(email);
     }
-    async decode(token) {
-        try {
-            const payload = await this.jwtService.verify(token, {
-                secret: this.configService.get('JWT_VERIFICATION_TOKEN_SECRET'),
-            });
-            if (typeof payload === 'object' && 'email' in payload) {
-                return payload.email;
-            }
-            throw new common_1.BadRequestException();
-        }
-        catch (error) {
-            if ((error === null || error === void 0 ? void 0 : error.name) === 'TokenExpiredError') {
-                throw new common_1.BadRequestException('EMail confirmation token expired');
-            }
-            throw new common_1.BadRequestException('Bad confirmation token');
-        }
+    async markEmail(token) {
+        return await this.usersService.markEmail(token);
     }
-    async confirm(email) {
-        const user = await this.usersService.findByEmail(email);
-        if (user.isEmailConfirmed) {
-            throw new common_1.BadRequestException('Email already confimed');
-        }
+    async verifyEmail(email) {
+        const sendEmailResponse = await this.usersService.verifyEmail(email);
     }
     async resend(userId) {
         const user = await this.usersService.getById(userId);
@@ -100,7 +80,7 @@ let AuthService = class AuthService {
             throw new common_1.BadRequestException('Email already confirmed');
         }
         const token = '1231112mans';
-        await this.usersService.verifyEmail(user.email, token);
+        await this.usersService.verifyEmail(user.email);
     }
 };
 AuthService = __decorate([

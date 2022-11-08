@@ -1,11 +1,8 @@
+import BaseEntity  from 'src/database/entities/abstract-entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Photo {
-    
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-
+export default class Photo extends BaseEntity{
   @Column()
   filename: string;
 

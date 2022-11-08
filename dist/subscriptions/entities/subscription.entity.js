@@ -9,16 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Subscription = void 0;
+const abstract_entity_1 = require("../../database/entities/abstract-entity");
 const user_entity_1 = require("../../users/entities/user.entity");
 const typeorm_1 = require("typeorm");
 const payment_entity_1 = require("./payment.entity");
-let Subscription = class Subscription {
+let Subscription = class Subscription extends abstract_entity_1.BaseEntity {
 };
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
-], Subscription.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => user_entity_1.default, (user) => user.subscriptions),
     __metadata("design:type", user_entity_1.default)
@@ -28,12 +24,12 @@ __decorate([
     __metadata("design:type", String)
 ], Subscription.prototype, "type", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => payment_entity_1.Payment, { eager: true }),
+    (0, typeorm_1.OneToOne)(() => payment_entity_1.default, { eager: true }),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", payment_entity_1.Payment)
+    __metadata("design:type", payment_entity_1.default)
 ], Subscription.prototype, "payment", void 0);
 Subscription = __decorate([
     (0, typeorm_1.Entity)()
 ], Subscription);
-exports.Subscription = Subscription;
+exports.default = Subscription;
 //# sourceMappingURL=subscription.entity.js.map

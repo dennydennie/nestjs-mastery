@@ -9,14 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Address = void 0;
+const abstract_entity_1 = require("../../database/entities/abstract-entity");
 const typeorm_1 = require("typeorm");
-let Address = class Address {
+let Address = class Address extends abstract_entity_1.default {
 };
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
-], Address.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -36,5 +32,5 @@ __decorate([
 Address = __decorate([
     (0, typeorm_1.Entity)()
 ], Address);
-exports.Address = Address;
+exports.default = Address;
 //# sourceMappingURL=address.entity.js.map

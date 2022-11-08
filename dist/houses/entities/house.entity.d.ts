@@ -1,8 +1,8 @@
-import { Address } from 'src/houses/entities/address.entity';
+import BaseEntity from 'src/database/entities/abstract-entity';
+import Address from 'src/houses/entities/address.entity';
 import User from 'src/users/entities/user.entity';
-import { Photo } from './photo.entity';
-export declare class House {
-    id: string;
+import Photo from './photo.entity';
+export default class House extends BaseEntity {
     address: Address;
     owner: User;
     photo?: Photo;

@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @netsjs/swagger
+  C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/uuid-random
 
 PATH: 
   C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Redis\;C:\Program Files\Git\cmd;C:\Program Files\PostgreSQL\12\bin;C:\Users\Asus\AppData\Local\Microsoft\WindowsApps;C:\Users\Asus\AppData\Roaming\npm;C:\Users\Asus\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Asus\AppData\Local\GitHubDesktop\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@netsjs%2fswagger: Not found
+  Error: https://registry.yarnpkg.com/@types%2fuuid-random: Not found
       at Request.params.callback [as _callback] (C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
       at Request.self.callback (C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
       at Request.emit (node:events:527:28)
@@ -58,13 +58,21 @@ npm manifest:
       "@nestjs/mapped-types": "*",
       "@nestjs/passport": "^9.0.0",
       "@nestjs/platform-express": "^9.0.0",
+      "@nestjs/swagger": "^6.1.3",
       "@nestjs/typeorm": "^9.0.1",
+      "@sendgrid/mail": "^7.7.0",
       "@types/cookie-parser": "^1.4.3",
+      "@types/multer": "^1.4.7",
+      "@types/nodemailer": "^6.4.6",
       "@types/passport-jwt": "^3.0.7",
       "@types/passport-local": "^1.0.34",
+      "bycontract": "^2.0.11",
       "class-transformer": "^0.5.1",
       "class-validator": "^0.13.2",
       "cookie-parser": "^1.4.6",
+      "crypto": "^1.0.1",
+      "crypto-js": "^4.1.1",
+      "nodemailer": "^6.8.0",
       "passport": "^0.6.0",
       "passport-jwt": "^4.0.0",
       "passport-local": "^1.0.0",
@@ -72,7 +80,8 @@ npm manifest:
       "reflect-metadata": "^0.1.13",
       "rimraf": "^3.0.2",
       "rxjs": "^7.2.0",
-      "typeorm": "^0.3.10"
+      "typeorm": "^0.3.10",
+      "uuid-random": "^1.3.2"
     },
     "devDependencies": {
       "@nestjs/cli": "^9.0.0",
@@ -904,7 +913,7 @@ Lockfile:
       "@types/jsonwebtoken" "8.5.8"
       jsonwebtoken "8.5.1"
   
-  "@nestjs/mapped-types@*":
+  "@nestjs/mapped-types@*", "@nestjs/mapped-types@1.2.0":
     version "1.2.0"
     resolved "https://registry.npmjs.org/@nestjs/mapped-types/-/mapped-types-1.2.0.tgz"
     integrity sha512-NTFwPZkQWsArQH8QSyFWGZvJ08gR+R4TofglqZoihn/vU+ktHEJjMqsIsADwb7XD97DhiD+TVv5ac+jG33BHrg==
@@ -935,6 +944,17 @@ Lockfile:
       fs-extra "10.1.0"
       jsonc-parser "3.2.0"
       pluralize "8.0.0"
+  
+  "@nestjs/swagger@^6.1.3":
+    version "6.1.3"
+    resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-6.1.3.tgz#ee274ceb645cb73cb7986027663a742394d51869"
+    integrity sha512-H9C/yRgLFb5QrAt6iGrYmIX9X7Q0zXkgZaTNUATljUBra+RCWrEUbLHBcGjTAOtcIyGV/vmyCLv68YSVcZoE0Q==
+    dependencies:
+      "@nestjs/mapped-types" "1.2.0"
+      js-yaml "4.1.0"
+      lodash "4.17.21"
+      path-to-regexp "3.2.0"
+      swagger-ui-dist "4.15.1"
   
   "@nestjs/testing@^9.0.0":
     version "9.1.6"
@@ -979,6 +999,29 @@ Lockfile:
       chalk "^4.1.0"
       consola "^2.15.0"
       node-fetch "^2.6.1"
+  
+  "@sendgrid/client@^7.7.0":
+    version "7.7.0"
+    resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-7.7.0.tgz#f8f67abd604205a0d0b1af091b61517ef465fdbf"
+    integrity sha512-SxH+y8jeAQSnDavrTD0uGDXYIIkFylCo+eDofVmZLQ0f862nnqbC3Vd1ej6b7Le7lboyzQF6F7Fodv02rYspuA==
+    dependencies:
+      "@sendgrid/helpers" "^7.7.0"
+      axios "^0.26.0"
+  
+  "@sendgrid/helpers@^7.7.0":
+    version "7.7.0"
+    resolved "https://registry.yarnpkg.com/@sendgrid/helpers/-/helpers-7.7.0.tgz#93fb4b6e2f0dc65080440d6a784cc93e8e148757"
+    integrity sha512-3AsAxfN3GDBcXoZ/y1mzAAbKzTtUZ5+ZrHOmWQ279AuaFXUNCh9bPnRpN504bgveTqoW+11IzPg3I0WVgDINpw==
+    dependencies:
+      deepmerge "^4.2.2"
+  
+  "@sendgrid/mail@^7.7.0":
+    version "7.7.0"
+    resolved "https://registry.yarnpkg.com/@sendgrid/mail/-/mail-7.7.0.tgz#aba09f5ce2e9d8ceee92284c3ea8b4a90b0e38fe"
+    integrity sha512-5+nApPE9wINBvHSUxwOxkkQqM/IAAaBYoP9hw7WwgDNQPxraruVqHizeTitVtKGiqWCKm2mnjh4XGN3fvFLqaw==
+    dependencies:
+      "@sendgrid/client" "^7.7.0"
+      "@sendgrid/helpers" "^7.7.0"
   
   "@sinclair/typebox@^0.24.1":
     version "0.24.50"
@@ -1194,10 +1237,24 @@ Lockfile:
     resolved "https://registry.npmjs.org/@types/mime/-/mime-3.0.1.tgz"
     integrity sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==
   
+  "@types/multer@^1.4.7":
+    version "1.4.7"
+    resolved "https://registry.yarnpkg.com/@types/multer/-/multer-1.4.7.tgz#89cf03547c28c7bbcc726f029e2a76a7232cc79e"
+    integrity sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==
+    dependencies:
+      "@types/express" "*"
+  
   "@types/node@*", "@types/node@^16.0.0":
     version "16.18.0"
     resolved "https://registry.npmjs.org/@types/node/-/node-16.18.0.tgz"
     integrity sha512-LqYqYzYvnbCaQfLAwRt0zboqnsViwhZm+vjaMSqcfN36vulAg7Pt0T83q4WZO2YOBw3XdyHi8cQ88H22zmULOA==
+  
+  "@types/nodemailer@^6.4.6":
+    version "6.4.6"
+    resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.6.tgz#ce21b4b474a08f672f182e15982b7945dde1f288"
+    integrity sha512-pD6fL5GQtUKvD2WnPmg5bC2e8kWCAPDwMPmHe/ohQbW+Dy0EcHgZ2oCSuPlWNqk74LS5BVMig1SymQbFMPPK3w==
+    dependencies:
+      "@types/node" "*"
   
   "@types/parse-json@^4.0.0":
     version "4.0.0"
@@ -1691,6 +1748,13 @@ Lockfile:
     resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
     integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
   
+  axios@^0.26.0:
+    version "0.26.1"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+    integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
+    dependencies:
+      follow-redirects "^1.14.8"
+  
   babel-jest@^28.1.3:
     version "28.1.3"
     resolved "https://registry.npmjs.org/babel-jest/-/babel-jest-28.1.3.tgz"
@@ -1877,6 +1941,11 @@ Lockfile:
     integrity sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==
     dependencies:
       streamsearch "^1.1.0"
+  
+  bycontract@^2.0.11:
+    version "2.0.11"
+    resolved "https://registry.yarnpkg.com/bycontract/-/bycontract-2.0.11.tgz#953a981be69f100ce030b5532852ea388fdae268"
+    integrity sha512-j05hyOgk4L2YuyLzCMmh87hleW1SwYMwX1ZDfCRAXzGVo1FTQfotBkFQY3M4fwfjk75qCdH7Fr7Pr2Kn/39muw==
   
   bytes@3.1.2:
     version "3.1.2"
@@ -2223,6 +2292,16 @@ Lockfile:
       path-key "^3.1.0"
       shebang-command "^2.0.0"
       which "^2.0.1"
+  
+  crypto-js@^4.1.1:
+    version "4.1.1"
+    resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
+    integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
+  
+  crypto@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/crypto/-/crypto-1.0.1.tgz#2af1b7cad8175d24c8a1b0778255794a21803037"
+    integrity sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==
   
   date-fns@^2.28.0:
     version "2.29.3"
@@ -2773,6 +2852,11 @@ Lockfile:
     version "3.2.7"
     resolved "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
     integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
+  
+  follow-redirects@^1.14.8:
+    version "1.15.2"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
+    integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
   
   fork-ts-checker-webpack-plugin@7.2.13:
     version "7.2.13"
@@ -3645,6 +3729,13 @@ Lockfile:
     resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
     integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
   
+  js-yaml@4.1.0, js-yaml@^4.1.0:
+    version "4.1.0"
+    resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz"
+    integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+    dependencies:
+      argparse "^2.0.1"
+  
   js-yaml@^3.13.1:
     version "3.14.1"
     resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-3.14.1.tgz"
@@ -3652,13 +3743,6 @@ Lockfile:
     dependencies:
       argparse "^1.0.7"
       esprima "^4.0.0"
-  
-  js-yaml@^4.1.0:
-    version "4.1.0"
-    resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz"
-    integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
-    dependencies:
-      argparse "^2.0.1"
   
   jsesc@^2.5.1:
     version "2.5.2"
@@ -4081,6 +4165,11 @@ Lockfile:
     version "2.0.6"
     resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.6.tgz"
     integrity sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==
+  
+  nodemailer@^6.8.0:
+    version "6.8.0"
+    resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.8.0.tgz#804bcc5256ee5523bc914506ee59f8de8f0b1cd5"
+    integrity sha512-EjYvSmHzekz6VNkNd12aUqAco+bOkRe3Of5jVhltqKhEsjw/y0PYPJfp83+s9Wzh1dspYAkUW/YNQ350NATbSQ==
   
   nopt@^5.0.0:
     version "5.0.0"
@@ -4990,6 +5079,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
     integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
   
+  swagger-ui-dist@4.15.1:
+    version "4.15.1"
+    resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-4.15.1.tgz#79952306cfb0d18cc05b10dff4c9896193f673c9"
+    integrity sha512-DlZARu6ckUFqDe0j5IPayO4k0gQvYQw9Un02MhxAgaMtVnTH2vmyyDe+yKeV0r1LiiPx3JbasdS/5Yyb/AV3iw==
+  
   symbol-observable@4.0.0:
     version "4.0.0"
     resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-4.0.0.tgz"
@@ -5293,6 +5387,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
     integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
+  
+  uuid-random@^1.3.2:
+    version "1.3.2"
+    resolved "https://registry.yarnpkg.com/uuid-random/-/uuid-random-1.3.2.tgz#96715edbaef4e84b1dcf5024b00d16f30220e2d0"
+    integrity sha512-UOzej0Le/UgkbWEO8flm+0y+G+ljUon1QWTEZOq1rnMAsxo2+SckbiZdKzAHHlVh6gJqI1TjC/xwgR50MuCrBQ==
   
   uuid@8.3.2, uuid@^8.3.2:
     version "8.3.2"

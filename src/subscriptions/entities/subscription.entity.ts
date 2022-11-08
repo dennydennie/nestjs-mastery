@@ -1,19 +1,10 @@
+import { BaseEntity } from 'src/database/entities/abstract-entity';
 import User from 'src/users/entities/user.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Payment } from './payment.entity';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import Payment from './payment.entity';
 
 @Entity()
-export class Subscription {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-
+export default class Subscription extends BaseEntity {
   @OneToMany(() => User, (user: User) => user.subscriptions)
   public customer: User;
 

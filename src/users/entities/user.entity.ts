@@ -1,13 +1,11 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { House } from 'src/houses/entities/house.entity';
-import { Subscription } from 'src/subscriptions/entities/subscription.entity';
+import House from 'src/houses/entities/house.entity';
+import { BaseEntity } from 'src/database/entities/abstract-entity';
+import Subscription from 'src/subscriptions/entities/subscription.entity';
 
 @Entity()
-class User {
-  @PrimaryGeneratedColumn('uuid')
-  public id: string;
-
+export default class User extends BaseEntity {
   @Column()
   public name: string;
 
@@ -21,11 +19,11 @@ class User {
   @Column({ unique: true, nullable: true })
   public phone: string;
 
-  @Column({ nullable: true })
-  public forgotPasswordToken: string;
+  @Column({ unique: true, nullable: true })
+  public forgotPasswordToken?: string;
 
   @Column({ nullable: true })
-  public verifyEmailToken: string;
+  public verifyEmailToken?: string;
 
   @Column({ nullable: true })
   public maritialStatus?: string;
@@ -42,9 +40,6 @@ class User {
   @OneToMany(
     () => Subscription,
     (subscription: Subscription) => subscription.customer,
-    { eager: true },
   )
   public subscriptions?: Subscription[];
 }
-
-export default User;

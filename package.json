@@ -31,6 +31,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.3",
     "@nestjs/typeorm": "^9.0.1",
+    "@sendgrid/mail": "^7.7.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/multer": "^1.4.7",
     "@types/nodemailer": "^6.4.6",
@@ -40,6 +41,9 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "nanoid": "^4.0.0",
     "nodemailer": "^6.8.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
@@ -48,7 +52,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.10"
+    "typeorm": "^0.3.10",
+    "uuid-random": "^1.3.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

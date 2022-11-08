@@ -9,14 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Photo = void 0;
+const abstract_entity_1 = require("../../database/entities/abstract-entity");
 const typeorm_1 = require("typeorm");
-let Photo = class Photo {
+let Photo = class Photo extends abstract_entity_1.default {
 };
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
-], Photo.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -30,5 +26,5 @@ __decorate([
 Photo = __decorate([
     (0, typeorm_1.Entity)()
 ], Photo);
-exports.Photo = Photo;
+exports.default = Photo;
 //# sourceMappingURL=photo.entity.js.map

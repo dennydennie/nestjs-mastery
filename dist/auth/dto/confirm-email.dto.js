@@ -17,6 +17,6 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ConfirmEmailDto.prototype, "token", void 0);
+], ConfirmEmailDto.prototype, "email", void 0);
 exports.ConfirmEmailDto = ConfirmEmailDto;
 //# sourceMappingURL=confirm-email.dto.js.map

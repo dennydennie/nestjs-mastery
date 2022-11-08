@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class ConfirmEmailDto {
+export class MarkEmailDto {
   @IsString()
   @IsNotEmpty()
-  email: string;
+  token: string;
 }
