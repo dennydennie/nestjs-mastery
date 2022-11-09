@@ -1,10 +1,10 @@
 import BaseEntity from 'src/database/entities/abstract-entity';
 import User from 'src/users/entities/user.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
 @Entity()
 export default class Subscription extends BaseEntity {
-  @OneToMany(() => User, (user: User) => user.subscriptions)
+  @ManyToOne(() => User, (user: User) => user.subscriptions)
   public customer: User;
 
   @Column()

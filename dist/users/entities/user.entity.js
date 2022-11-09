@@ -66,7 +66,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "isPhoneConfirmed", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => subscription_entity_1.default, (subscription) => subscription.customer),
+    (0, typeorm_1.OneToMany)(() => subscription_entity_1.default, (subscription) => subscription.customer, { eager: true }),
     __metadata("design:type", Array)
 ], User.prototype, "subscriptions", void 0);
 User = __decorate([

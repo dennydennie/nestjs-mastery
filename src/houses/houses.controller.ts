@@ -8,12 +8,12 @@ import {
   Post,
   Req,
   UploadedFile,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import RequestWithUser from 'src/auth/requestWithUser.interface';
+import { SubscriptionsService } from 'src/subscriptions/subscriptions.service';
 import { CreateHouseDto } from './dto/create-house.dto';
 import HouseDto from './dto/house.dto';
 import { UpdateHouseDto } from './dto/update-house.dto';
@@ -22,7 +22,10 @@ import { HousesService } from './houses.service';
 @Controller('houses')
 @ApiTags('Houses')
 export class HousesController {
-  constructor(private readonly housesService: HousesService) {}
+  constructor(
+    private readonly housesService: HousesService,
+    private readonly subscriptionsService: SubscriptionsService,
+  ) {}
 
   @Post()
   @ApiOperation({
@@ -36,10 +39,14 @@ export class HousesController {
   @ApiOperation({
     summary: 'Find all houses',
   })
-  async findAll(): Promise<HouseDto[]> {
+  async findAll(@Req() req: RequestWithUser): Promise<HouseDto[]> {
+    const isSubscribed = await this.subscriptionsService.check(req.user.id);
+
     const houseEntities = await this.housesService.findAll();
 
-    const houses = houseEntities.map((house) => HouseDto.fromModel(house));
+    const houses = houseEntities.map((house) =>
+      HouseDto.fromModel(house, isSubscribed),
+    );
 
     return houses;
   }
@@ -48,8 +55,12 @@ export class HousesController {
   @ApiOperation({
     summary: 'Find nne house by id',
   })
-  findOne(@Param('id') id: string) {
-    return this.housesService.findOneById(id);
+  async findOne(@Param('id') id: string, @Req() req: RequestWithUser) {
+    const isSubscribed = await this.subscriptionsService.check(req.user.id);
+
+    const houseEntity = await this.housesService.findOneById(id);
+
+    return HouseDto.fromModel(houseEntity, isSubscribed);
   }
 
   @Patch(':id')

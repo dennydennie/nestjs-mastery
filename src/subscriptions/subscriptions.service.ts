@@ -71,4 +71,11 @@ export class SubscriptionsService {
   async remove(id: string) {
     return await this.subscriptionsRepository.softDelete(id);
   }
+
+  async check(userId: string): Promise<boolean> {
+    const subscription = await this.subscriptionsRepository.findOneBy({
+      customer: { id: userId },
+    });
+    return subscription.expiryDate > new Date();
+  }
 }

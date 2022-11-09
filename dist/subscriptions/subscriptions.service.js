@@ -64,6 +64,12 @@ let SubscriptionsService = class SubscriptionsService {
     async remove(id) {
         return await this.subscriptionsRepository.softDelete(id);
     }
+    async check(userId) {
+        const subscription = await this.subscriptionsRepository.findOneBy({
+            customer: { id: userId },
+        });
+        return subscription.expiryDate > new Date();
+    }
 };
 SubscriptionsService = __decorate([
     (0, common_1.Injectable)(),

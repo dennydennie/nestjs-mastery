@@ -28,7 +28,6 @@ export default class User extends BaseEntity {
   @Column({ nullable: true })
   public verifyPhoneOTP?: string;
 
-
   @Column({ nullable: true })
   public maritialStatus?: string;
 
@@ -47,6 +46,8 @@ export default class User extends BaseEntity {
   @OneToMany(
     () => Subscription,
     (subscription: Subscription) => subscription.customer,
+    { eager: true },
   )
   public subscriptions?: Subscription[];
+
 }

@@ -17,24 +17,29 @@ const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
+const subscriptions_service_1 = require("../subscriptions/subscriptions.service");
 const create_house_dto_1 = require("./dto/create-house.dto");
 const house_dto_1 = require("./dto/house.dto");
 const update_house_dto_1 = require("./dto/update-house.dto");
 const houses_service_1 = require("./houses.service");
 let HousesController = class HousesController {
-    constructor(housesService) {
+    constructor(housesService, subscriptionsService) {
         this.housesService = housesService;
+        this.subscriptionsService = subscriptionsService;
     }
     create(house, req) {
         return this.housesService.create(house, req.user);
     }
-    async findAll() {
+    async findAll(req) {
+        const isSubscribed = await this.subscriptionsService.check(req.user.id);
         const houseEntities = await this.housesService.findAll();
-        const houses = houseEntities.map((house) => house_dto_1.default.fromModel(house));
+        const houses = houseEntities.map((house) => house_dto_1.default.fromModel(house, isSubscribed));
         return houses;
     }
-    findOne(id) {
-        return this.housesService.findOneById(id);
+    async findOne(id, req) {
+        const isSubscribed = await this.subscriptionsService.check(req.user.id);
+        const houseEntity = await this.housesService.findOneById(id);
+        return house_dto_1.default.fromModel(houseEntity, isSubscribed);
     }
     update(id, updateHouseDto) {
         return this.housesService.update(id, updateHouseDto);
@@ -64,8 +69,9 @@ __decorate([
         summary: 'Find all houses',
     }),
     openapi.ApiResponse({ status: 200, type: [require("./dto/house.dto").default] }),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], HousesController.prototype, "findAll", null);
 __decorate([
@@ -73,11 +79,12 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Find nne house by id',
     }),
-    openapi.ApiResponse({ status: 200, type: require("./entities/house.entity").default }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/house.dto").default }),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
 ], HousesController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
@@ -118,7 +125,8 @@ __decorate([
 HousesController = __decorate([
     (0, common_1.Controller)('houses'),
     (0, swagger_1.ApiTags)('Houses'),
-    __metadata("design:paramtypes", [houses_service_1.HousesService])
+    __metadata("design:paramtypes", [houses_service_1.HousesService,
+        subscriptions_service_1.SubscriptionsService])
 ], HousesController);
 exports.HousesController = HousesController;
 //# sourceMappingURL=houses.controller.js.map

@@ -11,4 +11,5 @@ export declare class SubscriptionsService {
     findAll(): Promise<Subscription[]>;
     findOne(id: string): Promise<Subscription>;
     remove(id: string): Promise<import("typeorm").UpdateResult>;
+    check(userId: string): Promise<boolean>;
 }

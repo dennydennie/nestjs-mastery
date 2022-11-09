@@ -20,6 +20,7 @@ SubscriptionsModule = __decorate([
         imports: [typeorm_1.TypeOrmModule.forFeature([subscription_entity_1.default, payment_entity_1.default])],
         controllers: [subscriptions_controller_1.SubscriptionsController],
         providers: [subscriptions_service_1.SubscriptionsService],
+        exports: [subscriptions_service_1.SubscriptionsService],
     })
 ], SubscriptionsModule);
 exports.SubscriptionsModule = SubscriptionsModule;

@@ -10,6 +10,7 @@ exports.HousesModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const address_entity_1 = require("./entities/address.entity");
+const subscriptions_module_1 = require("../subscriptions/subscriptions.module");
 const user_entity_1 = require("../users/entities/user.entity");
 const house_entity_1 = require("./entities/house.entity");
 const photo_entity_1 = require("./entities/photo.entity");
@@ -20,7 +21,7 @@ let HousesModule = class HousesModule {
 };
 HousesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([house_entity_1.default, user_entity_1.default, address_entity_1.default, photo_entity_1.default])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([house_entity_1.default, user_entity_1.default, address_entity_1.default, photo_entity_1.default]), subscriptions_module_1.SubscriptionsModule],
         controllers: [houses_controller_1.HousesController],
         providers: [houses_service_1.HousesService, houses_photo_service_1.HousesPhotoService],
     })

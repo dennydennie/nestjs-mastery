@@ -8,6 +8,7 @@ import {
 } from 'class-validator';
 import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
+import Role from 'src/users/roleEnum';
 import { Readable } from 'stream';
 import House from '../entities/house.entity';
 
@@ -82,7 +83,7 @@ export default class HouseDto {
   @IsOptional()
   public isRequest?: boolean;
 
-  static fromModel(house: House): HouseDto {
+  static fromModel(house: House, isSubscribed: boolean): HouseDto {
     const stream = house?.photo && Readable.from(house?.photo?.data);
 
     return {
@@ -100,8 +101,8 @@ export default class HouseDto {
       hasElectricity: house.hasElectricity,
       hasBackupElectricity: house.hasBackupElectricity,
       status: house.status,
-      address: AddressDto.fromModel(house.address),
-      owner: UserDto.fromModel(house.owner),
+      address: isSubscribed ? AddressDto.fromModel(house.address) : undefined,
+      owner: isSubscribed ? UserDto.fromModel(house.owner) : undefined,
       hasParkingSpace: house.hasParkingSpace,
       isTilled: house.isTilled,
       isWalled: house.isWalled,

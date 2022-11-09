@@ -8,12 +8,15 @@ export default class UserDto {
   public name: string;
   @IsString()
   public email: string;
+  @IsString()
+  public phone: string;
 
   static fromModel(user: User): UserDto {
     return {
       id: user.id,
       name: user.name,
       email: user.email,
+      phone: user.phone,
     };
   }
 }

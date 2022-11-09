@@ -17,10 +17,11 @@ class UserDto {
             id: user.id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
         };
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, email: { required: true, type: () => String } };
+        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, email: { required: true, type: () => String }, phone: { required: true, type: () => String } };
     }
 }
 __decorate([
@@ -35,5 +36,9 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UserDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UserDto.prototype, "phone", void 0);
 exports.default = UserDto;
 //# sourceMappingURL=user.dto.js.map

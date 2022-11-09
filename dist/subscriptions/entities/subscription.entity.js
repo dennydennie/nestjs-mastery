@@ -15,7 +15,7 @@ const typeorm_1 = require("typeorm");
 let Subscription = class Subscription extends abstract_entity_1.default {
 };
 __decorate([
-    (0, typeorm_1.OneToMany)(() => user_entity_1.default, (user) => user.subscriptions),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.default, (user) => user.subscriptions),
     __metadata("design:type", user_entity_1.default)
 ], Subscription.prototype, "customer", void 0);
 __decorate([

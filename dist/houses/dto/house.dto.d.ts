@@ -25,5 +25,5 @@ export default class HouseDto {
     hasCelling: boolean;
     hasBuiltInCupboards: boolean;
     isRequest?: boolean;
-    static fromModel(house: House): HouseDto;
+    static fromModel(house: House, isSubscribed: boolean): HouseDto;
 }

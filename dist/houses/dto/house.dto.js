@@ -16,7 +16,7 @@ const create_address_dto_1 = require("./create-address.dto");
 const user_dto_1 = require("../../users/dto/user.dto");
 const stream_1 = require("stream");
 class HouseDto {
-    static fromModel(house) {
+    static fromModel(house, isSubscribed) {
         var _a;
         const stream = (house === null || house === void 0 ? void 0 : house.photo) && stream_1.Readable.from((_a = house === null || house === void 0 ? void 0 : house.photo) === null || _a === void 0 ? void 0 : _a.data);
         return {
@@ -34,8 +34,8 @@ class HouseDto {
             hasElectricity: house.hasElectricity,
             hasBackupElectricity: house.hasBackupElectricity,
             status: house.status,
-            address: create_address_dto_1.default.fromModel(house.address),
-            owner: user_dto_1.default.fromModel(house.owner),
+            address: isSubscribed ? create_address_dto_1.default.fromModel(house.address) : undefined,
+            owner: isSubscribed ? user_dto_1.default.fromModel(house.owner) : undefined,
             hasParkingSpace: house.hasParkingSpace,
             isTilled: house.isTilled,
             isWalled: house.isWalled,
