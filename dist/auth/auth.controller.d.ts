@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { ConfirmEmailDto as VerifyEmailDto } from './dto/confirm-email.dto';
 import { RegisterDto } from './dto/register.dto';
 import ResetPasswordDto from './dto/reset-password.dto';
+import { VerifyPhoneDto } from './dto/verify-phone.dto';
 import RequestWithUser from './requestWithUser.interface';
 export declare class AuthController {
     private readonly authService;
@@ -13,7 +14,8 @@ export declare class AuthController {
     authenticate(request: RequestWithUser): void;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void>;
     forgotPassword(email: string): Promise<void>;
-    verify(verifyEmailDto: VerifyEmailDto): Promise<void>;
+    verifyEmail(verifyEmailDto: VerifyEmailDto): Promise<void>;
+    verifyPhone(verifyPhoneDto: VerifyPhoneDto): Promise<import("@nestjs/common").HttpStatus>;
     markEmail(token: string): Promise<import("@nestjs/common").HttpStatus>;
     resend(request: RequestWithUser): Promise<void>;
 }

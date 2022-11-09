@@ -8,9 +8,11 @@ export default class User extends BaseEntity {
     phone: string;
     forgotPasswordToken?: string;
     verifyEmailToken?: string;
+    verifyPhoneOTP?: string;
     maritialStatus?: string;
     familySize?: number;
     houses?: House[];
     isEmailConfirmed: boolean;
+    isPhoneConfirmed: boolean;
     subscriptions?: Subscription[];
 }

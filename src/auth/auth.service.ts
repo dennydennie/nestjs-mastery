@@ -9,10 +9,14 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { validate } from 'bycontract';
 import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
-import User from 'src/users/entities/user.entity';
-import { randomString, UsersService } from 'src/users/users.service';
+import {
+  generateOTP,
+  randomString,
+  UsersService,
+} from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { VerifyPhoneDto } from './dto/verify-phone.dto';
 import TokenPayload from './tokenPayload.interface';
 
 @Injectable()
@@ -25,11 +29,13 @@ export class AuthService {
   public async register(registerDto: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
     const verifyEmailToken = randomString();
+    const verifyPhoneOTP = generateOTP();
 
     try {
       const createdUser = await this.usersService.create({
         ...registerDto,
         verifyEmailToken,
+        verifyPhoneOTP,
         password: hashedPassword,
       });
       createdUser.password = undefined;
@@ -96,6 +102,10 @@ export class AuthService {
 
   async markEmail(token: string) {
     return await this.usersService.markEmail(token);
+  }
+
+  async verifyPhone(verifyPhoneDto: VerifyPhoneDto) {
+    return await this.usersService.verifyPhone(verifyPhoneDto);
   }
 
   async verifyEmail(email: string) {

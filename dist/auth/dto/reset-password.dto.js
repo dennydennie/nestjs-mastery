@@ -9,8 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class ResetPasswordDto {
+    static _OPENAPI_METADATA_FACTORY() {
+        return { password: { required: true, type: () => String }, email: { required: true, type: () => String }, token: { required: true, type: () => String } };
+    }
 }
 __decorate([
     (0, class_validator_1.IsString)(),

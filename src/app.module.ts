@@ -10,6 +10,8 @@ import { UsersModule } from './users/users.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { EmailService } from './email/email.service';
 import { GuardsModule } from './guards/guards.module';
+import { SmsService } from './sms/sms.service';
+import { SmsModule } from './sms/sms.module';
 
 @Module({
   imports: [
@@ -35,7 +37,8 @@ import { GuardsModule } from './guards/guards.module';
     HousesModule,
     SubscriptionsModule,
     GuardsModule,
+    SmsModule,
   ],
-  providers: [JwtService, AuthService, EmailService],
+  providers: [JwtService, AuthService, EmailService, SmsService],
 })
 export class AppModule {}

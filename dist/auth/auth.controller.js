@@ -13,14 +13,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const local_guard_1 = require("../guards/local.guard");
 const auth_service_1 = require("./auth.service");
 const confirm_email_dto_1 = require("./dto/confirm-email.dto");
 const register_dto_1 = require("./dto/register.dto");
 const reset_password_dto_1 = require("./dto/reset-password.dto");
+const verify_phone_dto_1 = require("./dto/verify-phone.dto");
 const constants_1 = require("./strategies/constants");
-const local_guard_1 = require("../guards/local.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -51,8 +53,11 @@ let AuthController = class AuthController {
     async forgotPassword(email) {
         await this.authService.forgotPassword(email);
     }
-    async verify(verifyEmailDto) {
+    async verifyEmail(verifyEmailDto) {
         return await this.authService.verifyEmail(verifyEmailDto.email);
+    }
+    async verifyPhone(verifyPhoneDto) {
+        return await this.authService.verifyPhone(verifyPhoneDto);
     }
     async markEmail(token) {
         return await this.authService.markEmail(token);
@@ -67,6 +72,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Create a user',
     }),
+    openapi.ApiResponse({ status: 201, type: require("../users/entities/user.entity").default }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [register_dto_1.RegisterDto]),
@@ -80,6 +86,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'login a user',
     }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -92,6 +99,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'logout a user',
     }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
@@ -103,6 +111,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Authenticate a user',
     }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -115,6 +124,7 @@ __decorate([
         summary: 'Reset a user password, by passing a secret token from email',
     }),
     (0, common_1.HttpCode)(200),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [reset_password_dto_1.default]),
@@ -125,24 +135,37 @@ __decorate([
     (0, constants_1.Public)(),
     (0, swagger_1.ApiOperation)({ summary: 'Send a forgot password email for a login' }),
     (0, common_1.HttpCode)(200),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Body)('email')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "forgotPassword", null);
 __decorate([
-    (0, common_1.Post)('/verify'),
+    (0, common_1.Post)('/verify-email'),
     (0, constants_1.Public)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Confirm email address' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Verify email address' }),
+    openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [confirm_email_dto_1.ConfirmEmailDto]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "verify", null);
+], AuthController.prototype, "verifyEmail", null);
+__decorate([
+    (0, common_1.Post)('/verify-phone'),
+    (0, constants_1.Public)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Verify phone number' }),
+    openapi.ApiResponse({ status: 201 }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [verify_phone_dto_1.VerifyPhoneDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verifyPhone", null);
 __decorate([
     (0, common_1.Post)('/mark-email'),
     (0, constants_1.Public)(),
     (0, swagger_1.ApiOperation)({ summary: 'Confirm email address' }),
+    openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Query)('token')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -151,12 +174,14 @@ __decorate([
 __decorate([
     (0, common_1.Post)('/resend-verify-email'),
     (0, constants_1.Public)(),
+    openapi.ApiResponse({ status: 201 }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "resend", null);
 AuthController = __decorate([
+    (0, swagger_1.ApiExtraModels)(verify_phone_dto_1.VerifyPhoneDto, reset_password_dto_1.default, confirm_email_dto_1.ConfirmEmailDto, register_dto_1.RegisterDto),
     (0, common_1.Controller)('auth'),
     (0, swagger_1.ApiTags)('Authentication'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

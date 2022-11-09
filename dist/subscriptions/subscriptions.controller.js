@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionsController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const create_subscription_dto_1 = require("./dto/create-subscription.dto");
@@ -39,6 +40,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Create a subscription',
     }),
+    openapi.ApiResponse({ status: 201, type: require("./entities/subscription.entity").default }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -50,6 +52,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Find all subscriptions',
     }),
+    openapi.ApiResponse({ status: 200, type: [require("./entities/subscription.entity").default] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
@@ -59,6 +62,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Find one subscription by id',
     }),
+    openapi.ApiResponse({ status: 200, type: require("./entities/subscription.entity").default }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -73,6 +77,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Delete one subscription by id',
     }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

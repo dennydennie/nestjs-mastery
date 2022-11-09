@@ -2,25 +2,25 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class RegisterDto {
   @IsString()
-  name: string;
+  public name: string;
 
   @IsString()
-  email: string;
+  public email: string;
 
   @IsString()
-  password: string;
+  public password: string;
 
   @IsString()
-  verifyEmailToken: string;
+  public verifyEmailToken: string;
 
   @IsString()
-  phone: string;
+  public phone: string;
 
   @IsNumber()
   @IsOptional()
-  familySize?: number;
+  public familySize?: number;
 
   @IsString()
   @IsOptional()
-  maritialStatus?: string;
+  public maritialStatus?: string;
 }

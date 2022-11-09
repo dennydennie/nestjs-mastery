@@ -7,20 +7,20 @@ import {
   Query,
   Req,
   Res,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { request } from 'https';
+import { LocalAuthGuard } from '../guards/local.guard';
 import { AuthService } from './auth.service';
 import { ConfirmEmailDto as VerifyEmailDto } from './dto/confirm-email.dto';
 import { RegisterDto } from './dto/register.dto';
 import ResetPasswordDto from './dto/reset-password.dto';
+import { VerifyPhoneDto } from './dto/verify-phone.dto';
 import RequestWithUser from './requestWithUser.interface';
 import { Public } from './strategies/constants';
-import { LocalAuthGuard } from '../guards/local.guard';
-import { MarkEmailDto } from './dto/mark-email.dto';
 
+@ApiExtraModels(VerifyPhoneDto,ResetPasswordDto ,VerifyEmailDto, RegisterDto)
 @Controller('auth')
 @ApiTags('Authentication')
 export class AuthController {
@@ -94,11 +94,18 @@ export class AuthController {
     await this.authService.forgotPassword(email);
   }
 
-  @Post('/verify')
+  @Post('/verify-email')
   @Public()
-  @ApiOperation({ summary: 'Confirm email address' })
-  async verify(@Body() verifyEmailDto: VerifyEmailDto) {
+  @ApiOperation({ summary: 'Verify email address' })
+  async verifyEmail(@Body() verifyEmailDto: VerifyEmailDto) {
     return await this.authService.verifyEmail(verifyEmailDto.email);
+  }
+
+  @Post('/verify-phone')
+  @Public()
+  @ApiOperation({ summary: 'Verify phone number' })
+  async verifyPhone(@Body() verifyPhoneDto: VerifyPhoneDto) {
+    return await this.authService.verifyPhone(verifyPhoneDto);
   }
 
   @Post('/mark-email')

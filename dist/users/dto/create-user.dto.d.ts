@@ -3,6 +3,7 @@ export declare class CreateUserDto {
     email: string;
     password: string;
     verifyEmailToken: string;
+    verifyPhoneOTP: string;
     phone: string;
     familySize?: number;
     maritialStatus?: string;

@@ -14,6 +14,9 @@ export class CreateUserDto {
   verifyEmailToken: string;
 
   @IsString()
+  verifyPhoneOTP: string;
+
+  @IsString()
   phone: string;
 
   @IsNumber()

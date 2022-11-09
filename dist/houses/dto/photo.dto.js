@@ -10,8 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PhotoDto = void 0;
+const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class PhotoDto {
+    static _OPENAPI_METADATA_FACTORY() {
+        return { filename: { required: true, type: () => String }, data: { required: true, type: () => Object } };
+    }
 }
 __decorate([
     (0, class_validator_1.IsString)(),

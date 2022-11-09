@@ -13,6 +13,7 @@ const jwt_1 = require("@nestjs/jwt");
 const typeorm_1 = require("@nestjs/typeorm");
 const email_module_1 = require("../email/email.module");
 const house_entity_1 = require("../houses/entities/house.entity");
+const sms_module_1 = require("../sms/sms.module");
 const user_entity_1 = require("./entities/user.entity");
 const users_service_1 = require("./users.service");
 let UsersModule = class UsersModule {
@@ -24,6 +25,7 @@ UsersModule = __decorate([
             config_1.ConfigModule,
             email_module_1.default,
             jwt_1.JwtModule,
+            sms_module_1.SmsModule,
         ],
         providers: [users_service_1.UsersService],
         exports: [users_service_1.UsersService],

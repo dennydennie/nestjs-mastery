@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class AddressDto {
     static fromModel(address) {
@@ -18,6 +19,9 @@ class AddressDto {
             location: address.location,
             city: address.city,
         };
+    }
+    static _OPENAPI_METADATA_FACTORY() {
+        return { houseNumber: { required: true, type: () => String }, street: { required: true, type: () => String }, location: { required: true, type: () => String }, city: { required: true, type: () => String } };
     }
 }
 __decorate([

@@ -1,1 +1,1 @@
-{"version":3,"file":"confirm-email.dto.js","sourceRoot":"","sources":["../../../src/auth/dto/confirm-email.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAAuD;AAEvD,MAAa,eAAe;CAI3B;AAHC;IAAC,IAAA,0BAAQ,GAAE;IACV,IAAA,4BAAU,GAAE;;8CACC;AAHhB,0CAIC"}
+{"version":3,"file":"confirm-email.dto.js","sourceRoot":"","sources":["../../../src/auth/dto/confirm-email.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,qDAAuD;AAEvD,MAAa,eAAe;;;;CAI3B;AAHC;IAAC,IAAA,0BAAQ,GAAE;IACV,IAAA,4BAAU,GAAE;;8CACQ;AAHvB,0CAIC"}

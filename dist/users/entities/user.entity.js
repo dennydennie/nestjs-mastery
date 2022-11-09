@@ -44,6 +44,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
+], User.prototype, "verifyPhoneOTP", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
 ], User.prototype, "maritialStatus", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
@@ -57,6 +61,10 @@ __decorate([
     (0, typeorm_1.Column)({ default: false, nullable: true }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isEmailConfirmed", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: false, nullable: true }),
+    __metadata("design:type", Boolean)
+], User.prototype, "isPhoneConfirmed", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => subscription_entity_1.default, (subscription) => subscription.customer),
     __metadata("design:type", Array)

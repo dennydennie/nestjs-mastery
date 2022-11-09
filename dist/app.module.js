@@ -19,6 +19,8 @@ const users_module_1 = require("./users/users.module");
 const subscriptions_module_1 = require("./subscriptions/subscriptions.module");
 const email_service_1 = require("./email/email.service");
 const guards_module_1 = require("./guards/guards.module");
+const sms_service_1 = require("./sms/sms.service");
+const sms_module_1 = require("./sms/sms.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -46,8 +48,9 @@ AppModule = __decorate([
             houses_module_1.HousesModule,
             subscriptions_module_1.SubscriptionsModule,
             guards_module_1.GuardsModule,
+            sms_module_1.SmsModule,
         ],
-        providers: [jwt_1.JwtService, auth_service_1.AuthService, email_service_1.EmailService],
+        providers: [jwt_1.JwtService, auth_service_1.AuthService, email_service_1.EmailService, sms_service_1.SmsService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

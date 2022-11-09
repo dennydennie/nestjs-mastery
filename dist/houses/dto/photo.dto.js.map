@@ -1,1 +1,1 @@
-{"version":3,"file":"photo.dto.js","sourceRoot":"","sources":["../../../src/houses/dto/photo.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAAoD;AAEpD,MAAa,QAAQ;CAMpB;AALC;IAAC,IAAA,0BAAQ,GAAE;;0CACM;AAEjB;IAAC,IAAA,yBAAO,GAAE;8BACJ,UAAU;sCAAC;AALnB,4BAMC"}
+{"version":3,"file":"photo.dto.js","sourceRoot":"","sources":["../../../src/houses/dto/photo.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,qDAAoD;AAEpD,MAAa,QAAQ;;;;CAMpB;AALC;IAAC,IAAA,0BAAQ,GAAE;;0CACM;AAEjB;IAAC,IAAA,yBAAO,GAAE;8BACJ,UAAU;sCAAC;AALnB,4BAMC"}

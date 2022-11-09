@@ -26,8 +26,10 @@ let AuthService = class AuthService {
     async register(registerDto) {
         const hashedPassword = await bcrypt.hash(registerDto.password, 10);
         const verifyEmailToken = (0, users_service_1.randomString)();
+        const verifyPhoneOTP = (0, users_service_1.generateOTP)();
         try {
-            const createdUser = await this.usersService.create(Object.assign(Object.assign({}, registerDto), { verifyEmailToken, password: hashedPassword }));
+            const createdUser = await this.usersService.create(Object.assign(Object.assign({}, registerDto), { verifyEmailToken,
+                verifyPhoneOTP, password: hashedPassword }));
             createdUser.password = undefined;
             return createdUser;
         }
@@ -70,6 +72,9 @@ let AuthService = class AuthService {
     }
     async markEmail(token) {
         return await this.usersService.markEmail(token);
+    }
+    async verifyPhone(verifyPhoneDto) {
+        return await this.usersService.verifyPhone(verifyPhoneDto);
     }
     async verifyEmail(email) {
         const sendEmailResponse = await this.usersService.verifyEmail(email);

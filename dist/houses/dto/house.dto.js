@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
 const create_address_dto_1 = require("./create-address.dto");
@@ -43,6 +44,9 @@ class HouseDto {
             hasBuiltInCupboards: house.hasBuiltInCupboards,
             isRequest: house.isRequest,
         };
+    }
+    static _OPENAPI_METADATA_FACTORY() {
+        return { id: { required: true, type: () => String }, rentalFee: { required: true, type: () => Number }, photo: { required: false, type: () => Object }, rentalPeriod: { required: true, type: () => String }, billsIncluded: { required: true, type: () => Boolean }, securityDeposit: { required: true, type: () => Number }, rooms: { required: true, type: () => Number }, bathrooms: { required: true, type: () => Number }, sharing: { required: true, type: () => Boolean }, hasCouncilWater: { required: true, type: () => Boolean }, hasBoreholeWater: { required: true, type: () => Boolean }, hasElectricity: { required: true, type: () => Boolean }, hasBackupElectricity: { required: true, type: () => Boolean }, status: { required: true, type: () => String }, address: { required: true, type: () => require("./create-address.dto").default }, owner: { required: true, type: () => require("../../users/dto/user.dto").default }, hasParkingSpace: { required: true, type: () => Boolean }, isTilled: { required: true, type: () => Boolean }, isWalled: { required: true, type: () => Boolean }, hasOwnEntrance: { required: true, type: () => Boolean }, hasCelling: { required: true, type: () => Boolean }, hasBuiltInCupboards: { required: true, type: () => Boolean }, isRequest: { required: false, type: () => Boolean } };
     }
 }
 __decorate([

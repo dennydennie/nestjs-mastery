@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HousesController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
@@ -50,6 +51,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Create a house',
     }),
+    openapi.ApiResponse({ status: 201, type: require("./entities/house.entity").default }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -61,6 +63,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Find all houses',
     }),
+    openapi.ApiResponse({ status: 200, type: [require("./dto/house.dto").default] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -70,6 +73,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Find nne house by id',
     }),
+    openapi.ApiResponse({ status: 200, type: require("./entities/house.entity").default }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -80,6 +84,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Update a house',
     }),
+    openapi.ApiResponse({ status: 200, type: require("./entities/house.entity").default }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -91,6 +96,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({
         summary: 'Remove a house by id',
     }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -102,6 +108,7 @@ __decorate([
         summary: 'Upload one photo for each house',
     }),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    openapi.ApiResponse({ status: 201, type: require("./entities/photo.entity").default }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),

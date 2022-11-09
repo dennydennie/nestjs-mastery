@@ -12,27 +12,30 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.randomString = exports.UsersService = void 0;
+exports.generateOTP = exports.randomString = exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const jwt_1 = require("@nestjs/jwt");
 const typeorm_1 = require("@nestjs/typeorm");
 const bcrypt = require("bcrypt");
 const email_service_1 = require("../email/email.service");
+const sms_service_1 = require("../sms/sms.service");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./entities/user.entity");
 let UsersService = class UsersService {
-    constructor(userRepository, configService, emailService, jwtService) {
+    constructor(userRepository, configService, emailService, jwtService, smsService) {
         this.userRepository = userRepository;
         this.configService = configService;
         this.emailService = emailService;
         this.jwtService = jwtService;
+        this.smsService = smsService;
     }
     async create(createUserDto) {
         const newUser = await this.userRepository.create(createUserDto);
         if (newUser) {
             await this.userRepository.save(newUser);
             await this.verifyEmail(newUser.email);
+            await this.smsService.send(newUser.phone, newUser.verifyPhoneOTP);
             return newUser;
         }
         throw new common_1.HttpException('Failed to add new user', common_1.HttpStatus.BAD_REQUEST);
@@ -124,6 +127,23 @@ let UsersService = class UsersService {
         }
         throw new common_1.HttpException('Email has already been verified', common_1.HttpStatus.BAD_REQUEST);
     }
+    async verifyPhone(verifyPhoneDto) {
+        const user = await this.userRepository.findOneBy({
+            phone: verifyPhoneDto.phone,
+            verifyPhoneOTP: verifyPhoneDto.verifyPhoneOTP,
+        });
+        if (user && !user.isPhoneConfirmed) {
+            const updateResponse = await this.userRepository.update({
+                id: user.id,
+            }, {
+                verifyPhoneOTP: null,
+                isPhoneConfirmed: true,
+            });
+            if (updateResponse.affected === 1)
+                return common_1.HttpStatus.CREATED;
+        }
+        throw new common_1.HttpException('Phone number has already been verified', common_1.HttpStatus.BAD_REQUEST);
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
@@ -131,7 +151,8 @@ UsersService = __decorate([
     __metadata("design:paramtypes", [typeorm_2.Repository,
         config_1.ConfigService,
         email_service_1.EmailService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        sms_service_1.SmsService])
 ], UsersService);
 exports.UsersService = UsersService;
 function randomString() {
@@ -145,4 +166,15 @@ function randomString() {
     return result;
 }
 exports.randomString = randomString;
+function generateOTP() {
+    let result = '';
+    const length = 6;
+    const dictionary = '0123456789';
+    var dictionaryLength = dictionary.length;
+    for (var i = 0; i < length; i++) {
+        result += dictionary.charAt(Math.floor(Math.random() * dictionaryLength));
+    }
+    return result;
+}
+exports.generateOTP = generateOTP;
 //# sourceMappingURL=users.service.js.map
