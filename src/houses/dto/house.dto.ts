@@ -4,11 +4,10 @@ import {
   IsNumber,
   IsObject,
   IsOptional,
-  IsString,
+  IsString
 } from 'class-validator';
 import AddressDto from 'src/houses/dto/create-address.dto';
 import UserDto from 'src/users/dto/user.dto';
-import Role from 'src/users/roleEnum';
 import { Readable } from 'stream';
 import House from '../entities/house.entity';
 

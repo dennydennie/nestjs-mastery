@@ -73,9 +73,15 @@ export class SubscriptionsService {
   }
 
   async check(userId: string): Promise<boolean> {
+    
     const subscription = await this.subscriptionsRepository.findOneBy({
       customer: { id: userId },
     });
-    return subscription.expiryDate > new Date();
+
+    if (subscription) {
+      return subscription.expiryDate > new Date();
+    } else if (!subscription) {
+      return false;
+    }
   }
 }
