@@ -37,6 +37,7 @@
     "@types/nodemailer": "^6.4.6",
     "@types/passport-jwt": "^3.0.7",
     "@types/passport-local": "^1.0.34",
+    "bcryptjs": "^2.4.3",
     "bycontract": "^2.0.11",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
