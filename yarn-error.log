@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/uuid-random
+  C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add nodemon
 
 PATH: 
-  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Redis\;C:\Program Files\Git\cmd;C:\Program Files\PostgreSQL\12\bin;C:\Users\Asus\AppData\Local\Microsoft\WindowsApps;C:\Users\Asus\AppData\Roaming\npm;C:\Users\Asus\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Asus\AppData\Local\GitHubDesktop\bin
+  C:\Program Files\BraveSoftware\Brave-Browser\Application;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Redis\;C:\Program Files\Git\cmd;C:\Program Files\PostgreSQL\12\bin;C:\Users\Asus\AppData\Local\Microsoft\WindowsApps;C:\Users\Asus\AppData\Roaming\npm;C:\Users\Asus\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Asus\AppData\Local\GitHubDesktop\bin
 
 Yarn version: 
   1.22.19
@@ -14,17 +14,8 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fuuid-random: Not found
-      at Request.params.callback [as _callback] (C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
-      at Request.self.callback (C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
-      at Request.emit (node:events:527:28)
-      at Request.<anonymous> (C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
-      at Request.emit (node:events:527:28)
-      at IncomingMessage.<anonymous> (C:\Users\Asus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
-      at Object.onceWrapper (node:events:641:28)
-      at IncomingMessage.emit (node:events:539:35)
-      at endReadableNT (node:internal/streams/readable:1345:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:71:26)
 
 npm manifest: 
   {
@@ -72,6 +63,8 @@ npm manifest:
       "cookie-parser": "^1.4.6",
       "crypto": "^1.0.1",
       "crypto-js": "^4.1.1",
+      "moment": "^2.29.4",
+      "nanoid": "^4.0.0",
       "nodemailer": "^6.8.0",
       "passport": "^0.6.0",
       "passport-jwt": "^4.0.0",
@@ -80,6 +73,7 @@ npm manifest:
       "reflect-metadata": "^0.1.13",
       "rimraf": "^3.0.2",
       "rxjs": "^7.2.0",
+      "twilio": "^3.83.1",
       "typeorm": "^0.3.10",
       "uuid-random": "^1.3.2"
     },
@@ -124,6 +118,9 @@ npm manifest:
       ],
       "coverageDirectory": "../coverage",
       "testEnvironment": "node"
+    },
+    "engines": {
+      "node": "16.15.0"
     }
   }
 
@@ -1748,7 +1745,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
     integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
   
-  axios@^0.26.0:
+  axios@^0.26.0, axios@^0.26.1:
     version "0.26.1"
     resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
     integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
@@ -2307,6 +2304,11 @@ Lockfile:
     version "2.29.3"
     resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"
     integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
+  
+  dayjs@^1.8.29:
+    version "1.11.6"
+    resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.6.tgz#2e79a226314ec3ec904e3ee1dd5a4f5e5b1c7afb"
+    integrity sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==
   
   debug@2.6.9:
     version "2.6.9"
@@ -3793,7 +3795,7 @@ Lockfile:
     optionalDependencies:
       graceful-fs "^4.1.6"
   
-  jsonwebtoken@8.5.1, jsonwebtoken@^8.2.0:
+  jsonwebtoken@8.5.1, jsonwebtoken@^8.2.0, jsonwebtoken@^8.5.1:
     version "8.5.1"
     resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
     integrity sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==
@@ -4075,6 +4077,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
     integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
   
+  moment@^2.29.4:
+    version "2.29.4"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+    integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
+  
   ms@2.0.0:
     version "2.0.0"
     resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -4116,6 +4123,11 @@ Lockfile:
       any-promise "^1.0.0"
       object-assign "^4.0.1"
       thenify-all "^1.0.0"
+  
+  nanoid@^4.0.0:
+    version "4.0.0"
+    resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.0.tgz#6e144dee117609232c3f415c34b0e550e64999a5"
+    integrity sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==
   
   natural-compare@^1.4.0:
     version "1.4.0"
@@ -4500,6 +4512,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/pluralize/-/pluralize-8.0.0.tgz"
     integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
   
+  pop-iterate@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/pop-iterate/-/pop-iterate-1.0.1.tgz#ceacfdab4abf353d7a0f2aaa2c1fc7b3f9413ba3"
+    integrity sha512-HRCx4+KJE30JhX84wBN4+vja9bNfysxg1y28l0DuJmkoaICiv2ZSilKddbS48pq50P8d2erAhqDLbp47yv3MbQ==
+  
   postgres-array@~2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/postgres-array/-/postgres-array-2.0.0.tgz#48f8fce054fbc69671999329b8834b772652d82e"
@@ -4583,7 +4600,16 @@ Lockfile:
     resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
     integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
   
-  qs@6.11.0, qs@^6.11.0:
+  q@2.0.x:
+    version "2.0.3"
+    resolved "https://registry.yarnpkg.com/q/-/q-2.0.3.tgz#75b8db0255a1a5af82f58c3f3aaa1efec7d0d134"
+    integrity sha512-gv6vLGcmAOg96/fgo3d9tvA4dJNZL3fMyBqVRrGxQ+Q/o4k9QzbJ3NQF9cOO/71wRodoXhaPgphvMFU68qVAJQ==
+    dependencies:
+      asap "^2.0.0"
+      pop-iterate "^1.0.1"
+      weak-map "^1.0.5"
+  
+  qs@6.11.0, qs@^6.11.0, qs@^6.9.4:
     version "6.11.0"
     resolved "https://registry.npmjs.org/qs/-/qs-6.11.0.tgz"
     integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
@@ -4594,6 +4620,11 @@ Lockfile:
     version "6.9.3"
     resolved "https://registry.npmjs.org/qs/-/qs-6.9.3.tgz"
     integrity sha512-EbZYNarm6138UKKq46tdx08Yo/q9ZhFoAXAI1meAFd2GtbRDhbZY2WQSICskT0c5q99aFzLG1D4nvTk9tqfXIw==
+  
+  querystringify@^2.1.1:
+    version "2.2.0"
+    resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
+    integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
   
   queue-microtask@^1.2.2:
     version "1.2.3"
@@ -4683,6 +4714,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz"
     integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
   
+  requires-port@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+    integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
+  
   resolve-cwd@^3.0.0:
     version "3.0.0"
     resolved "https://registry.npmjs.org/resolve-cwd/-/resolve-cwd-3.0.0.tgz"
@@ -4733,6 +4769,11 @@ Lockfile:
     integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
     dependencies:
       glob "^7.1.3"
+  
+  rootpath@^0.1.2:
+    version "0.1.2"
+    resolved "https://registry.yarnpkg.com/rootpath/-/rootpath-0.1.2.tgz#5b379a87dca906e9b91d690a599439bef267ea6b"
+    integrity sha512-R3wLbuAYejpxQjL/SjXo1Cjv4wcJECnMRT/FlcCfTwCBhaji9rWaRCoVEQ1SPiTJ4kKK+yh+bZLAV7SCafoDDw==
   
   run-async@^2.4.0:
     version "2.4.1"
@@ -4788,6 +4829,11 @@ Lockfile:
       "@types/json-schema" "^7.0.8"
       ajv "^6.12.5"
       ajv-keywords "^3.5.2"
+  
+  scmp@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/scmp/-/scmp-2.1.0.tgz#37b8e197c425bdeb570ab91cc356b311a11f9c9a"
+    integrity sha512-o/mRQGk9Rcer/jEEw/yw4mwo3EU/NvYvp577/Btqrym9Qy5/MdWGBqipbALgd2lrdWTJ5/gqDusxfnQBxOxT2Q==
   
   semver@7.x, semver@^7.3.4, semver@^7.3.5, semver@^7.3.7, semver@^7.3.8:
     version "7.3.8"
@@ -5285,6 +5331,23 @@ Lockfile:
     dependencies:
       tslib "^1.8.1"
   
+  twilio@^3.83.1:
+    version "3.83.1"
+    resolved "https://registry.yarnpkg.com/twilio/-/twilio-3.83.1.tgz#0779b5e7ad82bd1d3f3ab06300a5c9a7f406e2d0"
+    integrity sha512-1ZTgPhqmO6AyXI9CAIrWMsirYVxScyjq5jmAy9CSITGiatcBmV78rWwkPn4m3v5rWwIEz7q1lWJlFxkQK00K5g==
+    dependencies:
+      axios "^0.26.1"
+      dayjs "^1.8.29"
+      https-proxy-agent "^5.0.0"
+      jsonwebtoken "^8.5.1"
+      lodash "^4.17.21"
+      q "2.0.x"
+      qs "^6.9.4"
+      rootpath "^0.1.2"
+      scmp "^2.1.0"
+      url-parse "^1.5.9"
+      xmlbuilder "^13.0.2"
+  
   type-check@^0.4.0, type-check@~0.4.0:
     version "0.4.0"
     resolved "https://registry.npmjs.org/type-check/-/type-check-0.4.0.tgz"
@@ -5378,6 +5441,14 @@ Lockfile:
     dependencies:
       punycode "^2.1.0"
   
+  url-parse@^1.5.9:
+    version "1.5.10"
+    resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.10.tgz#9d3c2f736c1d75dd3bd2be507dcc111f1e2ea9c1"
+    integrity sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==
+    dependencies:
+      querystringify "^2.1.1"
+      requires-port "^1.0.0"
+  
   util-deprecate@^1.0.1, util-deprecate@~1.0.1:
     version "1.0.2"
     resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
@@ -5448,6 +5519,11 @@ Lockfile:
     integrity sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==
     dependencies:
       defaults "^1.0.3"
+  
+  weak-map@^1.0.5:
+    version "1.0.8"
+    resolved "https://registry.yarnpkg.com/weak-map/-/weak-map-1.0.8.tgz#394c18a9e8262e790544ed8b55c6a4ddad1cb1a3"
+    integrity sha512-lNR9aAefbGPpHO7AEnY0hCFjz1eTkWCXYvkTRrTHs9qv8zJp+SkVYpzfLIFXQQiG3tVvbNFQgVg2bQS8YGgxyw==
   
   webidl-conversions@^3.0.0:
     version "3.0.1"
@@ -5557,6 +5633,11 @@ Lockfile:
     dependencies:
       sax ">=0.6.0"
       xmlbuilder "~11.0.0"
+  
+  xmlbuilder@^13.0.2:
+    version "13.0.2"
+    resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-13.0.2.tgz#02ae33614b6a047d1c32b5389c1fdacb2bce47a7"
+    integrity sha512-Eux0i2QdDYKbdbA6AM6xE4m6ZTZr4G4xF9kahI2ukSEMCzwce2eX9WlTI5J3s+NU7hpasFsr8hWIONae7LluAQ==
   
   xmlbuilder@~11.0.0:
     version "11.0.1"
