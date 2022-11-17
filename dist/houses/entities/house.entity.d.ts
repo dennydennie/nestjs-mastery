@@ -12,7 +12,7 @@ export default class House extends BaseEntity {
     securityDeposit: number;
     rooms: number;
     bathrooms: number;
-    sharing: boolean;
+    isSharing: boolean;
     hasCouncilWater: boolean;
     hasBoreholeWater: boolean;
     hasElectricity: boolean;

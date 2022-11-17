@@ -43,7 +43,7 @@ export default class House extends BaseEntity {
   public bathrooms: number;
 
   @Column()
-  public sharing: boolean;
+  public isSharing: boolean;
 
   @Column()
   public hasCouncilWater: boolean;

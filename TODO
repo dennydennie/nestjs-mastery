@@ -1,0 +1,38 @@
+Tuesday
+limit daily views for each customer
+
+
+Wednesday to Friday Frontend
+Develop a basic theme for nextjs and tailwind
+implement searching by (price area availability)
+add next auth
+Add Redux
+add formik
+add grid view
+design smart email templates
+
+Saturday
+Upload frontend to vercel
+Upload backend to heroku
+Testing
+
+
+Chore 
+remove un needed nullables from all entities
+how to recieve messages from twillio
+Twillio pricing for one sms
+expire tokens
+
+Done
+add photos for the house
+Implement global guards
+add more information about the house
+add more user information
+Add ApiOperation to all end points
+implement email service
+test user account utilities (reset verify forgot)
+implement user subscriptions
+implement house requests
+add dtos to swagger
+Use google calender for task tracking
+Implement subscription based access control

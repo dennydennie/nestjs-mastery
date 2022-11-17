@@ -94,7 +94,7 @@ export default class HouseDto {
       securityDeposit: house.securityDeposit,
       rooms: house.rooms,
       bathrooms: house.bathrooms,
-      sharing: house.sharing,
+      sharing: house.isSharing,
       hasCouncilWater: house.hasCouncilWater,
       hasBoreholeWater: house.hasBoreholeWater,
       hasElectricity: house.hasElectricity,
