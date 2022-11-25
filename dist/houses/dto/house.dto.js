@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
-const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
 const create_address_dto_1 = require("./create-address.dto");
 const user_dto_1 = require("../../users/dto/user.dto");
@@ -21,7 +20,7 @@ class HouseDto {
         const stream = (house === null || house === void 0 ? void 0 : house.photo) && stream_1.Readable.from((_a = house === null || house === void 0 ? void 0 : house.photo) === null || _a === void 0 ? void 0 : _a.data);
         return {
             id: house.id,
-            photo: house.photo ? new common_1.StreamableFile(stream) : undefined,
+            photo: house.photo ? house === null || house === void 0 ? void 0 : house.photo.id : undefined,
             rentalFee: house.rentalFee,
             rentalPeriod: house.rentalPeriod,
             billsIncluded: house.billsIncluded,

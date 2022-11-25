@@ -1,10 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import User from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateHouseDto } from './dto/create-house.dto';
 import { UpdateHouseDto } from './dto/update-house.dto';
-import House  from './entities/house.entity';
+import House from './entities/house.entity';
 import { HousesPhotoService } from './houses-photo.service';
 
 @Injectable()
@@ -62,5 +67,13 @@ export class HousesService {
       photo: photo,
     });
     return photo;
+  }
+
+  async getPhotoById(PhotoId: string) {
+    const file = await this.housesPhotoService.getPhotoById(PhotoId);
+    if (!file) {
+      throw new NotFoundException();
+    }
+    return file;
   }
 }

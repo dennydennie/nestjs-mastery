@@ -30,12 +30,11 @@ let AuthController = class AuthController {
     async register(registerDto) {
         return this.authService.register(registerDto);
     }
-    async login(request, response) {
+    async login(request) {
         const { user } = request;
-        const cookie = this.authService.getCookieWithJwtToken(user.id);
-        response.setHeader('Set-Cookie', cookie);
+        const token = this.authService.getCookieWithJwtToken(user.id);
         user.password = undefined;
-        return response.send(user);
+        return { token, user };
     }
     async logout(request, response) {
         var _a;
@@ -88,9 +87,8 @@ __decorate([
     }),
     openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([

@@ -15,4 +15,5 @@ export declare class HousesController {
     update(id: string, updateHouseDto: UpdateHouseDto): Promise<import("./entities/house.entity").default>;
     remove(id: string): Promise<void>;
     addPhoto(id: string, file: Express.Multer.File): Promise<import("./entities/photo.entity").default>;
+    getPhotoyId(id: string): Promise<Uint8Array>;
 }

@@ -50,6 +50,10 @@ let HousesController = class HousesController {
     async addPhoto(id, file) {
         return this.housesService.addPhoto(id, file.buffer, file.originalname);
     }
+    async getPhotoyId(id) {
+        const file = await this.housesService.getPhotoById(id);
+        return file.data;
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -122,6 +126,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], HousesController.prototype, "addPhoto", null);
+__decorate([
+    (0, common_1.Get)('photo/:id'),
+    openapi.ApiResponse({ status: 200, type: Object }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], HousesController.prototype, "getPhotoyId", null);
 HousesController = __decorate([
     (0, common_1.Controller)('houses'),
     (0, swagger_1.ApiTags)('Houses'),

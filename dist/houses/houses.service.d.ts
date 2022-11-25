@@ -15,4 +15,5 @@ export declare class HousesService {
     update(id: string, updateHouse: UpdateHouseDto): Promise<House>;
     remove(id: string): Promise<void>;
     addPhoto(houseId: string, imageBuffer: Buffer, filename: string): Promise<import("./entities/photo.entity").default>;
+    getPhotoById(PhotoId: string): Promise<import("./entities/photo.entity").default>;
 }

@@ -87,7 +87,7 @@ export default class HouseDto {
 
     return {
       id: house.id,
-      photo: house.photo ? new StreamableFile(stream) : undefined,
+      photo: house.photo ? house?.photo.id : undefined,
       rentalFee: house.rentalFee,
       rentalPeriod: house.rentalPeriod,
       billsIncluded: house.billsIncluded,

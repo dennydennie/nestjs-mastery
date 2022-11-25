@@ -61,6 +61,13 @@ let HousesService = class HousesService {
         });
         return photo;
     }
+    async getPhotoById(PhotoId) {
+        const file = await this.housesPhotoService.getPhotoById(PhotoId);
+        if (!file) {
+            throw new common_1.NotFoundException();
+        }
+        return file;
+    }
 };
 HousesService = __decorate([
     (0, common_1.Injectable)(),

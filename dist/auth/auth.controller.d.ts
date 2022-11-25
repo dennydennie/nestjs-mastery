@@ -9,7 +9,10 @@ export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
     register(registerDto: RegisterDto): Promise<import("../users/entities/user.entity").default>;
-    login(request: RequestWithUser, response: Response): Promise<Response<any, Record<string, any>>>;
+    login(request: RequestWithUser): Promise<{
+        token: string;
+        user: import("../users/entities/user.entity").default;
+    }>;
     logout(request: RequestWithUser, response: Response): Promise<Response<any, Record<string, any>>>;
     authenticate(request: RequestWithUser): void;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void>;

@@ -6,9 +6,8 @@ import {
   Param,
   Patch,
   Post,
-  Req,
-  UploadedFile,
-  UseInterceptors,
+  Req, UploadedFile,
+  UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -89,5 +88,14 @@ export class HousesController {
     @UploadedFile() file: Express.Multer.File,
   ) {
     return this.housesService.addPhoto(id, file.buffer, file.originalname);
+  }
+
+  @Get('photo/:id')
+  async getPhotoyId(
+    @Param('id') id: string
+  ) {
+    const file = await this.housesService.getPhotoById(id);
+
+    return file.data;
   }
 }

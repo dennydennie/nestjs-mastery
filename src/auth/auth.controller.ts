@@ -7,7 +7,7 @@ import {
   Query,
   Req,
   Res,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -20,7 +20,7 @@ import { VerifyPhoneDto } from './dto/verify-phone.dto';
 import RequestWithUser from './requestWithUser.interface';
 import { Public } from './strategies/constants';
 
-@ApiExtraModels(VerifyPhoneDto,ResetPasswordDto ,VerifyEmailDto, RegisterDto)
+@ApiExtraModels(VerifyPhoneDto, ResetPasswordDto, VerifyEmailDto, RegisterDto)
 @Controller('auth')
 @ApiTags('Authentication')
 export class AuthController {
@@ -42,12 +42,11 @@ export class AuthController {
   @ApiOperation({
     summary: 'login a user',
   })
-  async login(@Req() request: RequestWithUser, @Res() response: Response) {
+  async login(@Req() request: RequestWithUser) {
     const { user } = request;
-    const cookie = this.authService.getCookieWithJwtToken(user.id);
-    response.setHeader('Set-Cookie', cookie);
+    const token = this.authService.getCookieWithJwtToken(user.id);
     user.password = undefined;
-    return response.send(user);
+    return { token, user };
   }
 
   @HttpCode(200)
